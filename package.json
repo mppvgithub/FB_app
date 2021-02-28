@@ -12,11 +12,12 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.14.1",
     "@react-native-community/masked-view": "^0.1.10",
+    "@react-native-firebase/app": "^10.8.1",
+    "@react-native-firebase/storage": "^10.8.1",
     "firebase": "^8.2.1",
     "native-base": "^2.15.2",
     "react": "16.13.1",
     "react-native": "0.63.4",
-    "react-native-firebase": "^5.6.0",
     "react-native-gesture-handler": "^1.10.2",
     "react-native-image-picker": "^0.28.1",
     "react-native-image-resizer": "^1.4.3",

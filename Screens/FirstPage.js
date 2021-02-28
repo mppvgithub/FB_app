@@ -8,6 +8,8 @@ import UUIDGenerator from 'react-native-uuid-generator';
 import * as colors from '../assets/css/Colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as ImagePicker from 'react-native-image-picker';
+import ImageResizer from 'react-native-image-resizer';
+import storage from '@react-native-firebase/storage';
 // import firebase, { Firebase } from 'react-native-firebase';
 
 const { width, height } = Dimensions.get('window')
@@ -28,6 +30,7 @@ const options = {
 export default function FirstPage({ navigation }) {
 
   const [imgSource, setImgSource] = useState("");
+  const [imgName, setImgName] = useState("");
   const [user_name, setUser_name] = useState("false");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,12 +44,12 @@ export default function FirstPage({ navigation }) {
   const default_user = require('../images/user_default.png');
   useEffect(() => {
     console.log("hiii")
-  });
+  }, []);
 
-  function pick_img() {
+  async function pick_img() {
     // showImagePicker
     // launchImageLibrary
-    ImagePicker.showImagePicker(options, (response) => {
+    ImagePicker.showImagePicker(options, async (response) => {
       console.log('Response = ', response);
 
       if (response.didCancel) {
@@ -54,14 +57,54 @@ export default function FirstPage({ navigation }) {
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
-        const source = { uri: response.uri };
-        const uri = response.uri;
-        setSelectedPictureUri(uri)
-        setImgSource(source)
+        const org_source = { uri: response.uri };
+        const org_uri = response.uri;
+        // await  setSelectedPictureUri(uri)
+        //  await setImgSource(source)
+        await resize_img(org_source, org_uri)
       }
     });
   }
-  async function register_check  (){
+  async function resize_img(org_source, org_uri) {
+    let newWidth = 40;
+    let newHeight = 40;
+    let compressFormat = 'PNG';
+    let quality = 100;
+    let rotation = 0;
+    let outputPath = null;
+    let imageUri = org_uri;
+    ImageResizer.createResizedImage(
+      imageUri,
+      newWidth,
+      newHeight,
+      compressFormat,
+      quality,
+      rotation,
+      outputPath,
+    )
+      .then((response) => {
+
+        let uri = response.uri;
+
+        let Name = 'profile' + user_name;
+
+        let uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+
+        setSelectedPictureUri(uploadUri)
+        setImgName(Name)
+
+        let source = { uri: uploadUri };
+        setImgSource(source)
+        // this.setState({
+        //   uploadUri,
+        //   imageName,
+        // });
+      })
+      .catch((err) => {
+        console.log('image resizing error => ', err);
+      });
+  }
+  async function register_check() {
     if (email != "" && password != "" && user_name != "") {
       const email_arr = []
 
@@ -87,7 +130,7 @@ export default function FirstPage({ navigation }) {
     }
   }
 
-  async function  login_data () {
+  async function login_data() {
     console.log("hi")
     await UUIDGenerator.getRandomUUID().then(async (uuid) => {
       // console.log("uuid",uuid)
@@ -107,8 +150,27 @@ export default function FirstPage({ navigation }) {
     // fb.ref('/user_emaillids/' + uuid).set({
     //   email: this.state.email,
     // });
-
+    // await fb.storage().ref(imgName).putFile(selectedPictureUri).then((snapshot) => {
+    //   console.log(`${selectedPictureUri} has been successfully uploaded.`);
+    // })
+    //   .catch((e) => console.log('uploading image error => ', e));
     await navigation.navigate("login")
+  }
+
+  async function post_image() {
+    // await storage().ref(imgName).putFile(selectedPictureUri).then((snapshot) => {
+    //   // console.log(`${selectedPictureUri} has been successfully uploaded.`);
+    //   alert("image uploaded")
+    // })
+    //   .catch((e) => console.log('uploading image error => ', e));
+    try {
+      await storage().ref(imgName).putFile(selectedPictureUri);
+      alert("uploaded")
+    } catch (err) {
+      alert(err)
+    }
+
+
   }
 
   async function Login() {
@@ -182,7 +244,7 @@ export default function FirstPage({ navigation }) {
 
 
   return (
-    <Container style={{backgroundColor:colors.bg}}>
+    <Container style={{ backgroundColor: colors.bg }}>
 
       <StatusBar translucent={false} backgroundColor={colors.bg} barStyle="dark-content" />
 
@@ -197,71 +259,75 @@ export default function FirstPage({ navigation }) {
         </View>
 
         <Row style={{ alignItems: "center", justifyContent: "center" }}>
-        
-            <Image
-              style={{ width: 100, height: 100, borderRadius: 50, borderWidth: 1 }}
-              source={imgSource !=""?imgSource:default_user}
-            />
-        
+
+          <Image
+            style={{ width: 100, height: 100, borderRadius: 50, borderWidth: 1 }}
+            source={imgSource != "" ? imgSource : default_user}
+          />
+
         </Row>
-        
+
         <Row style={{ margin: 10, alignItems: "center", justifyContent: "center" }}>
           <Text onPress={pick_img} style={{ fontSize: 17 }}>Take image</Text>
         </Row>
+        <Row style={{ alignItems: "center", justifyContent: "center", marginTop: 30 }}>
+          <Text onPress={() => { post_image() }} style={{ fontSize: 20, color: colors.blue }}>Post Image</Text>
+
+        </Row>
         <View style={{ width: "100%", paddingLeft: 30 }}>
           {/* <MaterialCommunityIcons style={{ color: colors.blue, fontSize: 70, }} name={"book-open-page-variant"} /> */}
-            <Text style={{ fontSize: 20, color: colors.blue }}><Text style={{ fontSize: 20,color: colors.red }}>U</Text>sername<Text style={{ color: colors.red }}>*</Text></Text>
-            <TextInput
-              style={styles.emailaddress}
-              onChangeText={TextInputValue =>
-               setUser_name(TextInputValue)}
-              placeholder={"Username *"}
-              placeholderTextColor={"#d9e9fc"}
-            />
-          </View>
+          <Text style={{ fontSize: 20, color: colors.blue }}><Text style={{ fontSize: 20, color: colors.red }}>U</Text>sername<Text style={{ color: colors.red }}>*</Text></Text>
+          <TextInput
+            style={styles.emailaddress}
+            onChangeText={TextInputValue =>
+              setUser_name(TextInputValue)}
+            placeholder={"Username *"}
+            placeholderTextColor={"#d9e9fc"}
+          />
+        </View>
 
 
-          <View style={{ width: "100%", paddingLeft: 30 }}>
-            <Text style={{ fontSize: 20, color: colors.blue }}><Text style={{ fontSize: 20,color: colors.red }}>E</Text>mail<Text style={{ color: colors.red }}>*</Text></Text>
-            <TextInput
-              style={styles.emailaddress}
-                onChangeText={TextInputValue =>
-               setEmail(TextInputValue)}
-              placeholder={" Email Id in Uplogic *"}
-              placeholderTextColor={"#d9e9fc"}
+        <View style={{ width: "100%", paddingLeft: 30 }}>
+          <Text style={{ fontSize: 20, color: colors.blue }}><Text style={{ fontSize: 20, color: colors.red }}>E</Text>mail<Text style={{ color: colors.red }}>*</Text></Text>
+          <TextInput
+            style={styles.emailaddress}
+            onChangeText={TextInputValue =>
+              setEmail(TextInputValue)}
+            placeholder={" Email Id in Uplogic *"}
+            placeholderTextColor={"#d9e9fc"}
 
 
-              keyboardType="email-address"
-            />
-          </View>
-          <View style={{ width: "100%", paddingLeft: 30 }}>
-            <Text style={{ fontSize: 20, color: colors.blue }}><Text style={{fontSize: 20, color: colors.red }}>p</Text>assword<Text style={{ color: colors.red }}>*</Text></Text>
-            <TextInput
-              style={styles.emailaddress}
-              onChangeText={TextInputValue =>
-                setPassword(TextInputValue)}
-              placeholder={"Password *"}
-              placeholderTextColor={"#d9e9fc"}
-              secureTextEntry={true}
-            />
-          </View>
+            keyboardType="email-address"
+          />
+        </View>
+        <View style={{ width: "100%", paddingLeft: 30 }}>
+          <Text style={{ fontSize: 20, color: colors.blue }}><Text style={{ fontSize: 20, color: colors.red }}>p</Text>assword<Text style={{ color: colors.red }}>*</Text></Text>
+          <TextInput
+            style={styles.emailaddress}
+            onChangeText={TextInputValue =>
+              setPassword(TextInputValue)}
+            placeholder={"Password *"}
+            placeholderTextColor={"#d9e9fc"}
+            secureTextEntry={true}
+          />
+        </View>
 
-          <Row style={{ alignItems: "center", justifyContent: "center" }}>
-            <Button onPress={() => { register_check() }} style={{
-              alignItems: "center", justifyContent: "center", 
-              borderRadius: 20,
-              backgroundColor: "#fff", marginTop: 20, width: 200, height: 50
-            }}>
-              <Text style={{ fontSize: 20, color: colors.blue }}><Text style={{ fontSize: 20,color: colors.red }}>R</Text>egister</Text>
-            </Button>
-            {/* <Text onPress={() => { navigation.navigate("login") }} style={{ fontSize: 20, top: 15, color: colors.blue }}><Text style={{ color: colors.red }}>Log</Text>in?</Text> */}
-            {/* <Text onPress={() => { this.props.navigation.navigate("login") }} style={{ color: "#fff", marginTop: 10, fontWeight: "bold" }}>Login?</Text> */}
-          </Row>
+        <Row style={{ alignItems: "center", justifyContent: "center" }}>
+          <Button onPress={() => { register_check() }} style={{
+            alignItems: "center", justifyContent: "center",
+            borderRadius: 20,
+            backgroundColor: "#fff", marginTop: 20, width: 200, height: 50
+          }}>
+            <Text style={{ fontSize: 20, color: colors.blue }}><Text style={{ fontSize: 20, color: colors.red }}>R</Text>egister</Text>
+          </Button>
+          {/* <Text onPress={() => { navigation.navigate("login") }} style={{ fontSize: 20, top: 15, color: colors.blue }}><Text style={{ color: colors.red }}>Log</Text>in?</Text> */}
+          {/* <Text onPress={() => { this.props.navigation.navigate("login") }} style={{ color: "#fff", marginTop: 10, fontWeight: "bold" }}>Login?</Text> */}
+        </Row>
 
-<Row style={{ alignItems: "center", justifyContent: "center" , marginTop:30}}>
-<Text onPress={() => { navigation.navigate("SecondPage") }} style={{ fontSize: 20,  color: colors.blue }}><Text style={{ color: colors.red }}>Log</Text>in?</Text>
+        <Row style={{ alignItems: "center", justifyContent: "center", marginTop: 30 }}>
+          <Text onPress={() => { navigation.navigate("SecondPage") }} style={{ fontSize: 20, color: colors.blue }}><Text style={{ color: colors.red }}>Log</Text>in?</Text>
 
-</Row>
+        </Row>
         {/* <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 10 }}>
           <Text onPress={() => navigation.navigate('Forgot')} style={{ color: "#a3a3a3", fontSize: 14 }}>Forgot password ?</Text>
         </View> */}
