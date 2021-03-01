@@ -36,3 +36,5 @@ let app = Firebase.initializeApp(config);
 //   }
 // });
 export const fb = app.database();
+export const fire = app;
+
