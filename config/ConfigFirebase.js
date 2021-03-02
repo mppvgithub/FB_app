@@ -1,5 +1,6 @@
 import Firebase from 'firebase';
 
+import storage from '@react-native-firebase/storage';
 
 
 var config = {
@@ -36,5 +37,6 @@ let app = Firebase.initializeApp(config);
 //   }
 // });
 export const fb = app.database();
+export const Store = app.storage();
 export const fire = app;
 

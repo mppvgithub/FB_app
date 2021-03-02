@@ -3,13 +3,12 @@ import { Dimensions, Platform, StyleSheet, ImageBackground, BackHandler, TextInp
 import { Container, Title, Header, Content, Col, Row, Grid, Form, Item, Input, Left, Button, Icon, Text, Label, Footer } from 'native-base';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { fb } from '../config/ConfigFirebase';
+import { fb, Store } from '../config/ConfigFirebase';
 import UUIDGenerator from 'react-native-uuid-generator';
 import * as colors from '../assets/css/Colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
-import storage from '@react-native-firebase/storage';
 // import firebase, { Firebase } from 'react-native-firebase';
 
 const { width, height } = Dimensions.get('window')
@@ -57,10 +56,11 @@ export default function FirstPage({ navigation }) {
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
+        console.log("picker response",response)
         const org_source = { uri: response.uri };
         const org_uri = response.uri;
-        // await  setSelectedPictureUri(uri)
-        //  await setImgSource(source)
+        await  setSelectedPictureUri(org_uri)
+         await setImgSource(org_source)
         await resize_img(org_source, org_uri)
       }
     });
@@ -83,18 +83,18 @@ export default function FirstPage({ navigation }) {
       outputPath,
     )
       .then((response) => {
-
+        console.log("resizier response", response)
         let uri = response.uri;
 
-        let Name = 'profile' + user_name;
+        let Name = response.name;
 
         let uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
 
-        setSelectedPictureUri(uploadUri)
+        // setSelectedPictureUri(uploadUri)
         setImgName(Name)
 
         let source = { uri: uploadUri };
-        setImgSource(source)
+        // setImgSource(source)
         // this.setState({
         //   uploadUri,
         //   imageName,
@@ -104,6 +104,38 @@ export default function FirstPage({ navigation }) {
         console.log('image resizing error => ', err);
       });
   }
+
+  async function post_image() {
+    // await Store.ref(imgName).putFile(selectedPictureUri).then((snapshot) => {
+    //   // console.log(`${selectedPictureUri} has been successfully uploaded.`);
+    //   alert("image uploaded")
+    // })
+    //   .catch((e) => console.log('uploading image error => ', e));
+    
+    try {
+      await Store.ref("images/"+imgName).put(selectedPictureUri,{ contentType: 'image/jpeg'});
+      alert("uploaded")
+    } catch (err) {
+      console.log("post_image err",err)
+      alert(err)
+    }
+    //105f219b-0c1b-4018-9eb7-b44b046435a6.PNG
+    // let reference = Store.ref(imgName); 
+    // console.log("reference"),reference        // 2
+    // let task = reference.put(selectedPictureUri);               // 3
+
+    // task.then(() => {                                 // 4
+    //   console.log('Image uploaded to the bucket!');
+    // }).catch((e) => console.log('uploading image error => ', e));
+
+  }
+  async function dowload_post () {
+    Store.ref("images").child(imgName).getDownloadURL().then( url => {
+      console.log("dowload url", url)
+    })
+    .catch((e) => console.log('downloading image error => ', e));
+  }
+
   async function register_check() {
     if (email != "" && password != "" && user_name != "") {
       const email_arr = []
@@ -157,21 +189,7 @@ export default function FirstPage({ navigation }) {
     await navigation.navigate("login")
   }
 
-  async function post_image() {
-    // await storage().ref(imgName).putFile(selectedPictureUri).then((snapshot) => {
-    //   // console.log(`${selectedPictureUri} has been successfully uploaded.`);
-    //   alert("image uploaded")
-    // })
-    //   .catch((e) => console.log('uploading image error => ', e));
-    try {
-      await storage().ref(imgName).putFile(selectedPictureUri);
-      alert("uploaded")
-    } catch (err) {
-      alert(err)
-    }
 
-
-  }
 
   async function Login() {
     setLoader(true)
@@ -272,6 +290,10 @@ export default function FirstPage({ navigation }) {
         </Row>
         <Row style={{ alignItems: "center", justifyContent: "center", marginTop: 30 }}>
           <Text onPress={() => { post_image() }} style={{ fontSize: 20, color: colors.blue }}>Post Image</Text>
+
+        </Row>
+        <Row style={{ alignItems: "center", justifyContent: "center", marginTop: 30 }}>
+          <Text onPress={() => { dowload_post() }} style={{ fontSize: 20, color: colors.blue }}>Download Image</Text>
 
         </Row>
         <View style={{ width: "100%", paddingLeft: 30 }}>

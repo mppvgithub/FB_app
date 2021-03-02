@@ -5,7 +5,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import FirstPage from './Screens/FirstPage';
 import SecondPage from './Screens/SecondPage';
-import home from './Screens/home';
+// import home from './Screens/home';
 import register from './Screens/register';
 import login from './Screens/login';
 import UDimage from './Screens/UDimage';
@@ -13,7 +13,7 @@ import UDimage from './Screens/UDimage';
 const App = createStackNavigator({
   FirstPage: { screen: FirstPage },
   SecondPage: { screen: SecondPage },
-  home: { screen: home },
+  // home: { screen: home },
   register: { screen: register },
   login: { screen: login },
   UDimage:{screen:UDimage}
