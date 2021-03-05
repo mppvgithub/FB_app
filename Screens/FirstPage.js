@@ -12,7 +12,8 @@ import ImageResizer from 'react-native-image-resizer';
 import DocumentPicker from "react-native-document-picker";
 import storage from "@react-native-firebase/storage";
 const { width, height } = Dimensions.get('window')
-
+import RNFS from 'react-native-fs'
+import RNFetchBlob from 'rn-fetch-blob'
 const SCREEN_HEIGHT = height
 const SCREEN_WIDTH = width
 
@@ -68,12 +69,13 @@ export default function FirstPage({ navigation }) {
         const org_uri = response.uri;
         setImage_type(response.type)
         // const image_type = response.type
-        await setSelectedPictureUri(org_uri)
-        await setImgSource(org_source)
-        await resize_img(org_source, org_uri)
+        // await setSelectedPictureUri(org_uri)
+        // await setImgSource(org_source)
+        resize_img(org_source, org_uri)
       }
     });
   }
+
   async function resize_img(org_source, org_uri) {
     let newWidth = 40;
     let newHeight = 40;
@@ -99,8 +101,8 @@ export default function FirstPage({ navigation }) {
 
         let uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
 
-        // setSelectedPictureUri(uploadUri)
-        // setImgName(Name)
+        setSelectedPictureUri(uploadUri)
+        setImgName(Name)
 
         let source = { uri: uploadUri };
         setImgSource(source)
@@ -111,24 +113,35 @@ export default function FirstPage({ navigation }) {
       });
   }
 
-  async function post_image() {
+  async function getPathForFirebaseStorage(uri) {
+    if (Platform.OS === "ios") return uri
+    const stat = await RNFetchBlob.fs.stat(uri)
+    return stat.path
+  }
 
-    console.log("post_image")
+  async function upload_image() {
+    console.log("upload_image")
     try {
-      const metadata = {
-        contentType: image_type,
-      };
-      await storage().ref("images/" + imgName).put(selectedPictureUri, metadata);
-      alert("uploaded")
+      const metadata = { contentType: image_type };
+
+      //solution 1
+      // const data = await RNFS.readFile(selectedPictureUri, 'base64')
+      // await storage().ref("images/" + imgName).putString(data, 'base64');
+
+      //solution 2
+      const fileUri = await getPathForFirebaseStorage(selectedPictureUri)
+      await storage().ref("images/" + imgName).putFile(fileUri);
+
+      alert(imgName + " Image uploaded")
     } catch (err) {
-      console.log("post_image err", err)
+      console.log("upload_image err", err)
       alert(err)
     }
   }
-  async function dowload_post() {
+  async function download_image() {
     Store.ref("images").child(imgName).getDownloadURL().then(url => {
       Linking.openURL(url)
-      console.log("dowload url", url)
+      console.log("dowload image url", url)
     })
       .catch((e) => console.log('downloading image error => ', e));
   }
@@ -141,11 +154,9 @@ export default function FirstPage({ navigation }) {
       console.log(
         "fileDetails : " + JSON.stringify(fileDetails)
       );
-      // Setting the state for selected File
       setFilePath(fileDetails);
     } catch (error) {
       setFilePath({});
-      // If user canceled the document selection
       alert(
         DocumentPicker.isCancel(error)
           ? "Canceled"
@@ -156,7 +167,6 @@ export default function FirstPage({ navigation }) {
 
   const _uploadFile = async () => {
     try {
-      // Check if file selected
       if (Object.keys(filePath).length == 0)
         return alert("Please Select any File");
       setLoading(true);
@@ -169,66 +179,30 @@ export default function FirstPage({ navigation }) {
         const metadata = {
           contentType: filePath.type,
         };
-        await Store.ref("files/" + filePath.name).put(filePath.uri.replace("file://", ""), metadata);
-        alert("uploaded")
+        // var unc = (Platform.OS == 'ios') ? decodeURIComponent(filePath.uri) : filePath.uri;
+        // await storage().ref("files/" + filePath.name).putFile(filePath.uri, metadata);
+        const fileUri = await getPathForFirebaseStorage(filePath.uri)
+        await storage().ref("files/" + filePath.name).putFile(fileUri);
+        alert(filePath.name + " File uploaded")
       } catch (err) {
-        console.log("post_image err", err)
+        console.log("File uploaded err", err)
         alert(err)
       }
 
-      // const reference = storage().ref(
-      //   `/myfiles/${filePath.name}`
-      // );
-
-      // // Put File
-      // const task = reference.putFile(
-      //   filePath.uri.replace("file://", "")
-      // );
-
-
-      // task.on("state_changed", (taskSnapshot) => {
-      //   setProcess(
-      //     `${taskSnapshot.bytesTransferred} transferred 
-      //      out of ${taskSnapshot.totalBytes}`
-      //   );
-      //   console.log(
-      //     `${taskSnapshot.bytesTransferred} transferred 
-      //      out of ${taskSnapshot.totalBytes}`
-      //   );
-      // });
-      // task.then(() => {
-      //   alert("Image uploaded to the bucket!");
-      //   setProcess("");
-      // });
-      // setFilePath({});
     } catch (error) {
       console.log("Error->", error);
       alert(`Error-> ${error}`);
     }
     // setLoading(false);
   };
-  async function post_file() {
 
-    console.log("post_file")
-    try {
-      const metadata = {
-        contentType: file_type,
-      };
-      await Store.ref("files/" + imgName).put(selectedPictureUri, metadata);
-      alert("uploaded")
-    } catch (err) {
-      console.log("post_file err", err)
-      alert(err)
-    }
-  }
-  async function dowload_post() {
-    Store.ref("files").child(imgName).getDownloadURL().then(url => {
+  async function download_file() {
+    Store.ref("files").child(filePath.name).getDownloadURL().then(url => {
       Linking.openURL(url)
-      console.log("dowload url", url)
+      console.log("dowload file url", url)
     })
-      .catch((e) => console.log('downloading image error => ', e));
+      .catch((e) => console.log('downloading file error => ', e));
   }
-
 
 
   async function register_check() {
@@ -384,19 +358,23 @@ export default function FirstPage({ navigation }) {
           <Text onPress={pick_img} style={{ fontSize: 17 }}>Take image</Text>
         </Row>
         <Row style={{ alignItems: "center", justifyContent: "center", marginTop: 30 }}>
-          <Text onPress={() => { post_image() }} style={{ fontSize: 20, color: colors.blue }}>Post Image ^</Text>
+          <Text onPress={() => { upload_image() }} style={{ fontSize: 20, color: colors.blue }}>Post Image</Text>
 
         </Row>
         <Row style={{ alignItems: "center", justifyContent: "center", marginTop: 30 }}>
-          <Text onPress={() => { dowload_post() }} style={{ fontSize: 20, color: colors.blue }}>Download Image v</Text>
+          <Text onPress={() => { download_image() }} style={{ fontSize: 20, color: colors.blue }}>Download Image</Text>
 
         </Row>
         <Row style={{ alignItems: "center", justifyContent: "center", marginTop: 30 }}>
-          <Text onPress={() => { _chooseFile() }} style={{ fontSize: 20, color: colors.blue }}>Choose file  |_|</Text>
+          <Text onPress={() => { _chooseFile() }} style={{ fontSize: 20, color: colors.blue }}>Choose file</Text>
 
         </Row>
         <Row style={{ alignItems: "center", justifyContent: "center", marginTop: 30 }}>
-          <Text onPress={() => { _uploadFile() }} style={{ fontSize: 20, color: colors.blue }}>upload file  |^|</Text>
+          <Text onPress={() => { _uploadFile() }} style={{ fontSize: 20, color: colors.blue }}>upload file</Text>
+
+        </Row>
+        <Row style={{ alignItems: "center", justifyContent: "center", marginTop: 30 }}>
+          <Text onPress={() => { download_file() }} style={{ fontSize: 20, color: colors.blue }}>Download file</Text>
 
         </Row>
 
