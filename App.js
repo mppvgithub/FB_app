@@ -19,7 +19,7 @@ const App = createStackNavigator({
   UDimage:{screen:UDimage}
 },
   {
-    initialRouteName: 'FirstPage',
+    initialRouteName: 'home',
   }
 );
 export default createAppContainer(App);
