@@ -11,9 +11,10 @@ import * as ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
 import DocumentPicker from "react-native-document-picker";
 import storage from "@react-native-firebase/storage";
-const { width, height } = Dimensions.get('window')
 import RNFS from 'react-native-fs'
 import RNFetchBlob from 'rn-fetch-blob'
+const { width, height } = Dimensions.get('window')
+
 const SCREEN_HEIGHT = height
 const SCREEN_WIDTH = width
 
