@@ -23,7 +23,7 @@ const dataReducers = (state = dataState, action) => {
 
         case UPDATE_QUOTE:{
             let { get_quote } = action.data;
-
+console.log("get_quote", get_quote)
             //clone the current state
             let clone = JSON.parse(JSON.stringify(state.quotes));
 

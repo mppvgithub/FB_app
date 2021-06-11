@@ -28,7 +28,7 @@ const options = {
   takePhotoButtonTitle: "Camera",
   chooseFromLibraryButtonTitle: "From my mobile"
 };
-export default function FirstPage({ navigation }) {
+export default function FB_file_iamge({ navigation }) {
 
   const [imgSource, setImgSource] = useState("");
   const [imgName, setImgName] = useState("");
@@ -51,7 +51,14 @@ export default function FirstPage({ navigation }) {
 
   const default_user = require('../images/user_default.png');
   useEffect(() => {
-    console.log("hiii")
+     const backAction = () => {
+      // navigation.navigate('dashboard');
+      navigation.goBack(null)
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+        return () => backHandler.remove();
   }, []);
 
   async function pick_img() {

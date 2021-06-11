@@ -14,7 +14,7 @@ const { width, height } = Dimensions.get('window')
 const SCREEN_HEIGHT = height
 const SCREEN_WIDTH = width
 
-export default function FirstPage({ navigation }) {
+export default function FB_file_iamge({ navigation }) {
   const [username, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, SetEmail] = useState("");
@@ -149,7 +149,7 @@ export default function FirstPage({ navigation }) {
          
         </Row>
         <Row style={{ alignItems: "center", justifyContent: "center", marginTop:20 }}>
-        <Text onPress={() => { navigation.navigate("FirstPage") }} style={{ fontSize: 20,  color: colors.blue }}><Text style={{ color: colors.red }}>New</Text>User?</Text>
+        <Text onPress={() => { navigation.navigate("FB_file_iamge") }} style={{ fontSize: 20,  color: colors.blue }}><Text style={{ color: colors.red }}>New</Text>User?</Text>
         </Row>
 
       </Content>

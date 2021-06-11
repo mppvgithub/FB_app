@@ -7,8 +7,9 @@ import {
     Text,
     ActivityIndicator,
     TouchableHighlight,
-    
+    BackHandler,
     LogBox,
+    Alert,
     TouchableOpacity
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,11 +31,22 @@ export default function Home(props) {
     const dataReducer = useSelector((state) => state.dataReducers);
     console.log("dataReducer---->", dataReducer)
     const { quotes } = dataReducer;
-
+    console.log("quotes", quotes)
     //==================================================================================================
 
     //2 - MAIN CODE BEGINS HERE
-    useEffect(() => getData(), []);
+    useEffect(() => {
+        getData()
+    }, []);
+    
+    useEffect(() => {
+        const backAction = () => {
+            navigation.navigate("dashboard")
+            return true;
+        };
+        const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+        return () => backHandler.remove();
+    }, []);
 
     //==================================================================================================
 

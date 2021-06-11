@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import FirstPage from './Screens/FirstPage';
+import FB_file_iamge from './Screens/FB_file_iamge';
 import SecondPage from './Screens/SecondPage';
 import home from './Screens/home';
 import register from './Screens/register';
@@ -13,7 +13,7 @@ import UDimage from './Screens/UDimage';
 import HomeScreen from './Screens/HomeScreen';
 
 const App = createStackNavigator({
-  FirstPage: { screen: FirstPage },
+  FB_file_iamge: { screen: FB_file_iamge },
   SecondPage: { screen: SecondPage },
   // home: { screen: home },
   register: { screen: register },
@@ -22,7 +22,7 @@ const App = createStackNavigator({
   HomeScreen:{screen:HomeScreen}
 },
   {
-    initialRouteName: 'FirstPage',
+    initialRouteName: 'FB_file_iamge',
   }
 );
 export default createAppContainer(App);

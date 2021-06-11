@@ -33,8 +33,16 @@ export default class login extends Component {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
   handleBackButtonClick() {
-
-    this.props.navigation.goBack(null);
+    Alert.alert("Exit!", "Are you sure you want to exit?", [
+      {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel"
+      },
+      { text: "YES", onPress: () => BackHandler.exitApp() }
+  ]);
+  return true;
+    // this.props.navigation.goBack(null);
     return true;
 
   }
@@ -61,7 +69,7 @@ export default class login extends Component {
           if (pwd_arr[emailindex] == this.state.password) {
 
             global.user_id = (uuid_arr[emailindex])
-            this.props.navigation.navigate('home')
+            this.props.navigation.navigate('SideMenu')
           } else {
             alert("Password mismatch")
           }
@@ -75,9 +83,9 @@ export default class login extends Component {
     }
   }
 
-  dashboard = () =>{
+  dashboard = () => {
     console.log("Dashboard")
-    this.props.navigation.navigate('dashboard')
+    this.props.navigation.navigate('SideMenu')
   }
   render() {
     // const { navigate } = this.props.navigation;
@@ -129,7 +137,7 @@ export default class login extends Component {
 
 
           <View style={{ alignItems: "center", justifyContent: "center" }}>
-            <Button onPress={() => { this.dashboard() }} style={{
+            <Button onPress={() => { this.login_check() }} style={{
               backgroundColor: "#fff", alignItems: "center", justifyContent: "center", borderColor: "#fff",
               borderWidth: 1,
               fontSize: 15,

@@ -3,9 +3,9 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Button, View } from 'react-native';
 import LoadingScreen from './LoadingScreen';
-import Home_page from './Home_page';
+import Quotes_page from './Quotes_page';
 import NewQuoteScreen from './NewQuote';
-import FirstPage from './FirstPage';
+import FB_file_iamge from './FB_file_iamge';
 import SecondPage from './SecondPage';
 import home from './home';
 import register from './register';
@@ -18,11 +18,9 @@ import SideMenu from './SideMenu'
 
 
 const AppStack = createStackNavigator({
-    Home_page: {
-        screen: Home_page,
-        navigationOptions: ({ navigation }) => ({
-            title: `Home page`,
-        }),
+    Quotes_page: {
+        screen: Quotes_page,
+        navigationOptions: ({ navigation }) => ({header: null}),
     },
     NewQuote: {
         screen: NewQuoteScreen,
@@ -30,38 +28,35 @@ const AppStack = createStackNavigator({
             title: `New Quote`,
         }),
     },
-    FirstPage: { screen: FirstPage },
-    SecondPage: { screen: SecondPage },
-    home: { screen: home },
-    register: { screen: register },
-    // login: { screen: login },
-    UDimage: { screen: UDimage },
-    HomeScreen: { screen: HomeScreen },
-    dashboard:{screen: dashboard},
-    LoadingScreen:{ screen: LoadingScreen},
-    SideMenu:{ screen: SideMenu},
-    SideMenuList:{ screen: SideMenuList}
+    FB_file_iamge: { screen: FB_file_iamge, navigationOptions: ({ navigation }) => ({header: null}), },
+    SecondPage: { screen: SecondPage , navigationOptions: ({ navigation }) => ({header: null}),},
+    home: { screen: home , navigationOptions: ({ navigation }) => ({header: null}),},
+    register: { screen: register , navigationOptions: ({ navigation }) => ({header: null}),},
+    // login: { screen: login , navigationOptions: ({ navigation }) => ({header: null}),},
+    UDimage: { screen: UDimage , navigationOptions: ({ navigation }) => ({header: null}),},
+    HomeScreen: { screen: HomeScreen , navigationOptions: ({ navigation }) => ({header: null}),},
+    dashboard: { screen: dashboard , navigationOptions: ({ navigation }) => ({header: null}),},
+    LoadingScreen: { screen: LoadingScreen , navigationOptions: ({ navigation }) => ({header: null}),},
+    SideMenu: { screen: SideMenu , navigationOptions: ({ navigation }) => ({header: null}),},
+    SideMenuList: { screen: SideMenuList , navigationOptions: ({ navigation }) => ({header: null}),}
 });
 
 const RoutesStack = createSwitchNavigator(
     {
         login: login,
-        App: AppStack
+        App: AppStack,
     },
-    { initialRouteName: 'login' },
+    {
+        initialRouteName: 'login',
+        headerMode: "none",
+    },
     {
         headerMode: 'none',
         navigationOptions: {
-          headerVisible: false,
+            headerVisible: false,
         }
-       }
+    }
 
-    // < NavigationContainer >
-    // <Drawer.Navigator initialRouteName="Home">
-    //     <Drawer.Screen name="Home" component={HomeScreen} />
-    //     <Drawer.Screen name="Notifications" component={NotificationsScreen} />
-    // </Drawer.Navigator>
-    // </NavigationContainer >
 );
 
 const Router = createAppContainer(RoutesStack);

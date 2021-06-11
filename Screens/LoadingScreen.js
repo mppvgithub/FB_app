@@ -18,10 +18,10 @@ export default function LoadingScreen(props) {
                 console.log("hi")
                 AsyncStorage.setItem('quotes', JSON.stringify(SampleData.quotes));//save the initial data in Async
 
-                navigation.navigate('Home_page'); //Navigate to the home page
+                navigation.navigate('Quotes_page'); //Navigate to the home page
             }else{
                 console.log("hello")
-                navigation.navigate('Home_page'); //Navigate to the home page
+                navigation.navigate('Quotes_page'); //Navigate to the home page
             }
         });
     }
