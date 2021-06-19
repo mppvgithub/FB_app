@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
     KeyboardAvoidingView,
     SafeAreaView,
@@ -7,22 +7,29 @@ import {
     TextInput,
     TouchableHighlight,
     View,
-    
+
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useDispatch} from 'react-redux';
-import {Header} from 'react-navigation-stack';
+import { useDispatch } from 'react-redux';
+import { Header } from 'react-navigation-stack';
 
 // import axios from "axios";
 
-import {addQuote, updateQuote} from "./stores/actions";
+import { addQuote, updateQuote } from "./stores/actions";
 
 
 const MAX_LENGTH = 250;
 
 export default function NewQuote(props) {
+    
+
     const dispatch = useDispatch();
-    const {navigation} = props;
+    console.log("props", props)
+    const { navigation } = props;
+
+    let from = navigation.getParam('title', null)
+
+    console.log("Mode -> ", from)
 
     let quote = navigation.getParam('quote', null);
 
@@ -38,36 +45,54 @@ export default function NewQuote(props) {
         let edit = quote !== null;
         let quote_ = {};
 
+        console.log("edit ", edit)
         if (edit) {
             quote_ = quote;
             quote_['author'] = author;
             quote_['text'] = text;
         } else {
             let id = generateID();
-            quote_ = {"id": id, "author": author, "text": text};
+            quote_ = { "id": id, "author": author, "text": text };
         }
 
         //OPTION 1 - ADD TO LOCAL STORAGE DATA
         AsyncStorage.getItem('quotes', (err, quotes) => {
             if (err) alert(err.message);
-            else if (quotes !== null){
+            else if (quotes !== null) {
                 quotes = JSON.parse(quotes);
 
-                if (!edit){
+                if (!edit) {
                     //add the new quote to the top
                     quotes.unshift(quote_);
-                }else{
+
+                    console.log("New data to add in store", quote_)
+
+                } else {
                     //find the index of the quote with the quote id
                     const index = quotes.findIndex((obj) => obj.id === quote_.id);
 
                     //if the quote is in the array, replace the quote
                     if (index !== -1) quotes[index] = quote_;
+                    console.log("Edit data to add in store", quote_)
                 }
+
+                console.log("quotes to add in async", quotes)
 
                 //Update the local storage
                 AsyncStorage.setItem('quotes', JSON.stringify(quotes), () => {
-                    if (!edit) dispatch(addQuote(quote_));
-                    else dispatch(updateQuote(quote_));
+                    if(quote_ !== null){
+                        if (!edit){
+                        console.log("new add in store")
+                        console.log("quote_",quote_)
+                        dispatch(addQuote(quote_));
+                    } 
+                    else {
+                        console.log("existing data update in store")
+                        console.log("quote_",quote_)
+                        dispatch(updateQuote(quote_));
+                    }  
+                    }
+                   
 
                     navigation.goBack();
                 });
@@ -112,24 +137,24 @@ export default function NewQuote(props) {
                         placeholder={"Author"}
                         autoFocus={true}
                         style={[styles.author]}
-                        value={author}/>
+                        value={author} />
                     <TextInput
                         multiline={true}
                         onChangeText={(text) => setText(text)}
                         placeholder={"Enter Quote"}
                         style={[styles.text]}
                         maxLength={MAX_LENGTH}
-                        value={text}/>
+                        value={text} />
                 </View>
 
                 <View style={styles.buttonContainer}>
-                    <View style={{flex: 1, justifyContent: "center"}}>
-                        <Text style={[styles.count, (MAX_LENGTH - text.length <= 10) && {color: "red"}]}> {MAX_LENGTH - text.length}</Text>
+                    <View style={{ flex: 1, justifyContent: "center" }}>
+                        <Text style={[styles.count, (MAX_LENGTH - text.length <= 10) && { color: "red" }]}> {MAX_LENGTH - text.length}</Text>
                     </View>
-                    <View style={{flex: 1, alignItems: "flex-end"}}>
+                    <View style={{ flex: 1, alignItems: "flex-end" }}>
                         <TouchableHighlight style={[styles.button]} disabled={disabled} onPress={onSave}
-                                            underlayColor="rgba(0, 0, 0, 0)">
-                            <Text style={[styles.buttonText, {color: disabled ? "rgba(255,255,255,.5)" : "#FFF"}]}>
+                            underlayColor="rgba(0, 0, 0, 0)">
+                            <Text style={[styles.buttonText, { color: disabled ? "rgba(255,255,255,.5)" : "#FFF" }]}>
                                 Save
                             </Text>
                         </TouchableHighlight>

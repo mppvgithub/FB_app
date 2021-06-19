@@ -38,7 +38,7 @@ export default function Home(props) {
     useEffect(() => {
         getData()
     }, []);
-    
+
     useEffect(() => {
         const backAction = () => {
             navigation.navigate("dashboard")
@@ -110,7 +110,10 @@ export default function Home(props) {
                 //Update the local storage
                 AsyncStorage.setItem('quotes',
                     JSON.stringify(quotes), // update list (after deleted data )
-                    () => dispatch(deleteQuote(id)) // update quotes state (Delete data from state qoute)
+                    () => {
+                        console.log("id",id),
+                            dispatch(deleteQuote(id))
+                    }// update quotes state (Delete data from state qoute)
                 );
             }
         });

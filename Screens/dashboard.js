@@ -5,7 +5,7 @@ const screenWidth = Math.round(Dimensions.get('screen').width);
 const screenHeight = Math.round(Dimensions.get('screen').height);
 import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
 
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 dashboard['navigationOptions'] = screenProps => ({
     header: null
 })
@@ -17,6 +17,12 @@ export default function dashboard(props) {
 
     const [name, setName] = useState("")
 
+    useEffect(()=>{
+        AsyncStorage.getItem('login', (err, data) => {
+           
+            console.log("login status",data)
+        });
+    })
     useEffect(() => {
         const backAction = () => {
             Alert.alert("Exit!", "Are you sure you want to exit?", [
@@ -120,14 +126,14 @@ export default function dashboard(props) {
                         </TouchableOpacity>
                     </Col>
                     <Col style={{ padding: 5 }}>
-                        {/* <TouchableOpacity onPress={() => { navigation.navigate('SideMenu') }} style={styles.card}>
+                        <TouchableOpacity onPress={() => { navigation.navigate('mongo_curd') }} style={styles.card}>
                             <Col style={{ alignItems: "center", justifyContent: "center" }} >
                                 <Row style={{ height: screenHeight * 0.08 }}>
                                 </Row>
                                 <Row style={{ height: "3%" }}></Row>
-                                <Text style={{ fontSize: RFValue(12), textAlign: "center" }}>Register profile{"\n"}firebase</Text>
+                                <Text style={{ fontSize: RFValue(12), textAlign: "center" }}>Mongodb crud</Text>
                             </Col>
-                        </TouchableOpacity> */}
+                        </TouchableOpacity>
                     </Col>
 
                 </Row>

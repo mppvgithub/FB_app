@@ -15,6 +15,8 @@ import HomeScreen from './HomeScreen';
 import dashboard from './dashboard';
 import SideMenuList from './SideMenuList'
 import SideMenu from './SideMenu'
+import splash from './splash'
+import mongo_curd from './mongo_curd'
 
 
 const AppStack = createStackNavigator({
@@ -32,22 +34,23 @@ const AppStack = createStackNavigator({
     SecondPage: { screen: SecondPage , navigationOptions: ({ navigation }) => ({header: null}),},
     home: { screen: home , navigationOptions: ({ navigation }) => ({header: null}),},
     register: { screen: register , navigationOptions: ({ navigation }) => ({header: null}),},
-    // login: { screen: login , navigationOptions: ({ navigation }) => ({header: null}),},
+    login: { screen: login , navigationOptions: ({ navigation }) => ({header: null}),},
     UDimage: { screen: UDimage , navigationOptions: ({ navigation }) => ({header: null}),},
     HomeScreen: { screen: HomeScreen , navigationOptions: ({ navigation }) => ({header: null}),},
     dashboard: { screen: dashboard , navigationOptions: ({ navigation }) => ({header: null}),},
     LoadingScreen: { screen: LoadingScreen , navigationOptions: ({ navigation }) => ({header: null}),},
     SideMenu: { screen: SideMenu , navigationOptions: ({ navigation }) => ({header: null}),},
-    SideMenuList: { screen: SideMenuList , navigationOptions: ({ navigation }) => ({header: null}),}
+    SideMenuList: { screen: SideMenuList , navigationOptions: ({ navigation }) => ({header: null}),},
+    mongo_curd:{screen: mongo_curd , navigationOptions: ({ navigation }) => ({header: null}),}
 });
 
 const RoutesStack = createSwitchNavigator(
     {
-        login: login,
+        splash: splash,
         App: AppStack,
     },
     {
-        initialRouteName: 'login',
+        initialRouteName: 'splash',
         headerMode: "none",
     },
     {

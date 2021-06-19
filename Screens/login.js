@@ -1,11 +1,11 @@
 //This is an example code for Navigator//
 import React, { Component } from 'react';
 import { Container, Header, Left, Body, Right, Button, Title, Icon, Content, Row, Col } from 'native-base';
-import { Platform, StyleSheet, Text, View, Image, TouchableHighlight, Dimensions, ImageBackground, TextInput, ScrollView, Alert, StatusBar, BackHandler, Keyboard, AsyncStorage } from 'react-native';
+import { Platform, StyleSheet, Text, View, Image, TouchableHighlight, Dimensions, ImageBackground, TextInput, ScrollView, Alert, StatusBar, BackHandler, Keyboard } from 'react-native';
 import { fb } from '../config/ConfigFirebase';
 import * as colors from '../assets/css/Colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const { width, height } = Dimensions.get('window')
 
 const SCREEN_HEIGHT = height
@@ -47,6 +47,7 @@ export default class login extends Component {
 
   }
   login_check = async () => {
+    AsyncStorage.setItem('login', "1");
     if (this.state.email != "" && this.state.password != "") {
       // this.props.navigation.navigate("home")
       var email_arr = []

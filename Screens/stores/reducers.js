@@ -8,22 +8,24 @@ const dataReducers = (state = dataState, action) => {
     switch (action.type) {
         case ADD_QUOTE:
             let { get_quote } = action.data;
-
+            console.log("ADD_QUOTE get_quote", get_quote)
+            console.log("state.quotes", state.quotes)
             //clone the current state
             let clone = JSON.parse(JSON.stringify(state.quotes));
 
             clone.unshift(get_quote); //add the new quote to the top
 
-            return {...state, quotes: clone};
+            return { ...state, quotes: clone };
 
         case QUOTES_AVAILABLE:
             let { quotes } = action.data;
 
-            return {...state, quotes};
+            return { ...state, quotes };
 
-        case UPDATE_QUOTE:{
+        case UPDATE_QUOTE: {
             let { get_quote } = action.data;
-console.log("get_quote", get_quote)
+            console.log("UPDATE_QUOTE, get_quote", get_quote)
+            console.log("state.quotes", state.quotes)
             //clone the current state
             let clone = JSON.parse(JSON.stringify(state.quotes));
 
@@ -33,10 +35,10 @@ console.log("get_quote", get_quote)
             //if the get_quote is in the array, update the get_quote
             if (index !== -1) clone[index] = get_quote;
 
-            return {...state, quotes: clone};
+            return { ...state, quotes: clone };
         }
 
-        case DELETE_QUOTE:{
+        case DELETE_QUOTE: {
             let { id } = action.data;
 
             //clone the current state
@@ -48,7 +50,7 @@ console.log("get_quote", get_quote)
             //if the quote is in the array, remove the quote
             if (index !== -1) clone.splice(index, 1);
 
-            return {...state, quotes: clone};
+            return { ...state, quotes: clone };
         }
 
         default:
@@ -57,6 +59,6 @@ console.log("get_quote", get_quote)
 };
 
 // Combine all the reducers
-const rootReducer = combineReducers({dataReducers});
+const rootReducer = combineReducers({ dataReducers });
 
 export default rootReducer;
