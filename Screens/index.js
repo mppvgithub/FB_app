@@ -17,6 +17,9 @@ import SideMenuList from './SideMenuList'
 import SideMenu from './SideMenu'
 import splash from './splash'
 import mongo_curd from './mongo_curd'
+import product_list from './product_list'
+import product_edit from './product_edit'
+import product_add from './product_add'
 
 
 const AppStack = createStackNavigator({
@@ -41,7 +44,10 @@ const AppStack = createStackNavigator({
     LoadingScreen: { screen: LoadingScreen , navigationOptions: ({ navigation }) => ({header: null}),},
     SideMenu: { screen: SideMenu , navigationOptions: ({ navigation }) => ({header: null}),},
     SideMenuList: { screen: SideMenuList , navigationOptions: ({ navigation }) => ({header: null}),},
-    mongo_curd:{screen: mongo_curd , navigationOptions: ({ navigation }) => ({header: null}),}
+    mongo_curd:{screen: mongo_curd , navigationOptions: ({ navigation }) => ({header: null}),},
+    product_list:{screen: product_list , navigationOptions: ({ navigation }) => ({header: null}),},
+    product_edit:{ screen: product_edit , navigationOptions: ({ navigation }) => ({header: null}),},
+    product_add: { screen: product_add , navigationOptions: ({ navigation }) => ({header: null}),},
 });
 
 const RoutesStack = createSwitchNavigator(
