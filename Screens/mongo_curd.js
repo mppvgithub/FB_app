@@ -79,7 +79,7 @@ export default function mongo_curd(props) {
                     <TouchableOpacity onPress={() => { navigation.navigate('product_list') }} style={styles.card}>
                         <Col style={{ alignItems: "center", justifyContent: "center" }} >
                             <Row style={{ height: screenHeight * 0.08 }}>
-                                {/* <Image source={require('../assets/img/dashboard_img2.png')} style={{ flex: 1, marginLeft: 8, width: null, height: null, resizeMode: "contain" }} /> */}
+                                <Image source={require('../assets/img/manage.png')} style={{ flex: 1, marginLeft: 8, width: null, height: null, resizeMode: "contain" }} />
                             </Row>
                             <Row style={{ height: "3%" }}></Row>
                             <Text style={{ fontSize: RFValue(12), textAlign: "center" }}>Manage{"\n"}Product</Text>
@@ -87,10 +87,10 @@ export default function mongo_curd(props) {
                     </TouchableOpacity>
                 </Col>
                 <Col style={{ padding: 5 }}>
-                    <TouchableOpacity onPress={() => { navigation.navigate('register') }} style={styles.card}>
+                    <TouchableOpacity onPress={() => { navigation.navigate('product_list_cus') }} style={styles.card}>
                         <Col style={{ alignItems: "center", justifyContent: "center" }} >
                             <Row style={{ height: screenHeight * 0.08 }}>
-                                {/* <Image source={require('../assets/img/dashboard_img4.png')} style={{ flex: 1, width: null, height: null, resizeMode: "contain" }} /> */}
+                                <Image source={require('../assets/img/buy.png')} style={{ flex: 1, width: null, height: null, resizeMode: "contain" }} />
                             </Row>
                             <Row style={{ height: "3%" }}></Row>
                             <Text style={{ fontSize: RFValue(12), textAlign: "center" }}>Buy{"\n"}Product</Text>

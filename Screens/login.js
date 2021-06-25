@@ -138,7 +138,7 @@ export default class login extends Component {
 
 
           <View style={{ alignItems: "center", justifyContent: "center" }}>
-            <Button onPress={() => { this.login_check() }} style={{
+            <Button onPress={() => { this.dashboard() }} style={{
               backgroundColor: "#fff", alignItems: "center", justifyContent: "center", borderColor: "#fff",
               borderWidth: 1,
               fontSize: 15,

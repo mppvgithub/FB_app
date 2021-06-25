@@ -10,25 +10,25 @@ import {
     BackHandler,
     LogBox,
     Alert,
-    TouchableOpacity, Image
+    TouchableOpacity
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { get_addQuotes, get_addMenu, deleteQuote, add_menu } from "./stores/actions";
+import { BASE_URL } from '../config/Constants'
+
 import { Divider } from 'react-native-elements';
+import { Container, Content, Header, Col, Row } from 'native-base'
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { get_addQuotes, deleteQuote } from "./stores/actions";
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { Container, Content, Header, Col, Row } from 'native-base'
-import {BASE_URL} from '../config/Constants'
 
 // import ListItem from "./ListItem";
 LogBox.ignoreAllLogs(true)
-export default function Home(props) {
+export default function product_list_cus(props) {
     const dispatch = useDispatch();
     const { navigation } = props;
 
     // const BASE_URL = 'http://192.168.43.137:9000';
-
 
     //1 - DECLARE VARIABLES
     const [isFetching, setIsFetching] = useState(false);
@@ -36,9 +36,13 @@ export default function Home(props) {
 
     //Access Redux Store State
     const dataReducer = useSelector((state) => state.dataReducers);
-    console.log("dataReducer---->", dataReducer)
+    console.log("IN STORE dataReducer -->", dataReducer)
     const { quotes } = dataReducer;
     console.log("quotes", quotes)
+    const { menus } = dataReducer;
+    console.log("menus", menus)
+
+    let menu_ = {} // save the async storage value
     //==================================================================================================
 
     //2 - MAIN CODE BEGINS HERE
@@ -58,7 +62,17 @@ export default function Home(props) {
     //==================================================================================================
 
     //3 - GET FLATLIST DATA
-    const getData = () => {
+    const getData = async () => {
+        await AsyncStorage.getItem('menus', (err, menus) => {
+            console.log("Get menus from async", menus)
+            if (err) {
+                alert(err.message);
+            }
+            else if (menus !== "null" && menus !== null) {
+                dispatch(get_addMenu(JSON.parse(menus)));
+            }
+        });
+
         fetch(BASE_URL + "/menus_list", {
             method: 'post',
             headers: {
@@ -81,31 +95,44 @@ export default function Home(props) {
             });
     };
 
+    const addcart = (item) => {
+        //details to save in store
+        var details = {
+            "itemAmount": item.itemAmount,
+            "itemId": item.itemId,
+            "itemName": item.itemName,
+            "itemQty": item.itemQty,
+            "itemSelcted": 1
+        }
+        console.log("details", details)
+        var menu_arr = []
+        AsyncStorage.getItem('menus', (err, menus) => {
+            console.log("async menu", menus)
+            if (err) alert(err.message)
 
+            else if (menus !== "null" && menus !== null) {
+                menus = JSON.parse(menus)
+                console.log("available menus", menus)
+                console.log("details------", details)
+                menus.unshift(details)
 
-    const onDelete = (data) => {
-        fetch(BASE_URL + "/del_menu", {
-            method: 'post',
-            headers: {
-                // 'Authorization': 'Basic YWRtaW46MTIzNA==',
-                'Content-Type': 'application/json',
-                // 'X-API-KEY': 'RfTjWnZr4u7x!A-D' 
-            },
-            // body: formBody
-            body: JSON.stringify({
-                "itemId": data.itemId,
+                AsyncStorage.setItem('menus', JSON.stringify(menus), () => {
+                    dispatch(add_menu(details));
+                });
+            } else {
+                menu_arr.push(details)
+                console.log("menu_arr", menu_arr)
+                AsyncStorage.setItem('menus', JSON.stringify(menu_arr), () => {
+                    dispatch(add_menu(details));
+                });
+            }
+        })
 
-            })
-        }).then((response) => response.json())
-            .then(async (res) => {
-                console.log("del_menu res", res)
-                await setProduct_details([])
-                await getData()
+        // to push details in store
 
-            }).catch((error) => {
-                console.log("entire_details error", error)
-            });
     }
+
+
     //==================================================================================================
 
     //7 - RENDER
@@ -127,10 +154,11 @@ export default function Home(props) {
                         <View style={{ alignItems: "center", justifyContent: "center", width: "60%" }}>
                             <Text>Buy Product</Text>
                         </View>
-                        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", width: "20%" }}>
-                            <TouchableOpacity
-                                onPress={() => navigation.navigate('product_add')}>
-                                <Image source={require('../assets/img/add.png')} style={{ flex: 1, marginLeft: 8, width: 30, height: 30, resizeMode: "contain" }} />
+                        <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
+                            {/* <Text>Next</Text> */}
+                            <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }} onPress={() => { navigation.navigate("cart") }}>
+                                <FontAwesome style={{ color: "#000", fontSize: 30, }} name={"opencart"} />
+                                <Text style={{ backgroundColor: "red", borderRadius: 10, color: "#fff", fontSize: 10 }}>  {menus.length}  </Text>
 
                             </TouchableOpacity>
                         </View>
@@ -142,7 +170,7 @@ export default function Home(props) {
                         // renderItem={renderItem}
                         renderItem={({ item, index }) => (
                             <View style={{
-                                height: 150, width: "96%", marginTop: 10, marginLeft: '2%',
+                                height: 150, width: "47%", marginTop: 10, marginLeft: '2%',
                                 backgroundColor: "white",
                                 borderRadius: 15,
                                 padding: 10,
@@ -151,37 +179,33 @@ export default function Home(props) {
                                 shadowOffset: { width: 0, height: 3 },
                                 shadowOpacity: 0.5,
                                 shadowRadius: 5,
+                                backgroundColor: "#fad6c3"
                             }}>
-                                <View style={{ flexDirection: "row", width: "100%", height: 40, }}>
-                                    <View style={{ alignItems: "flex-start", justifyContent: "center", width: "50%", }}>
-                                        <Text>{item.itemName} ${item.itemAmount}</Text>
+                                <View style={{ alignItems: "center", justifyContent: "center", height: 60, }}>
+                                    <View style={{ alignItems: "center", justifyContent: "center", width: "100%", }}>
+                                        <Text style={{ fontSize: 20 }}>{item.itemName}</Text>
                                     </View>
-                                    <View style={{ justifyContent: "center", width: "50%", flexDirection: "row" }}>
-                                        <TouchableOpacity onPress={() => { navigation.navigate('product_edit', { menu: item }) }} style={{ alignItems: "center", width: "70%", flexDirection: "row-reverse" }}>
-                                            <Text style={{ textAlign: "right", color: "blue" }}>EDIT</Text>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity onPress={() => { onDelete(item) }} style={{ alignItems: "center", width: "30%", flexDirection: "row-reverse" }}>
-                                            <Text style={{ textAlign: "right", color: "red" }}>Delete</Text>
-                                        </TouchableOpacity>
+
+                                </View>
+                                <View style={{ alignItems: "center", justifyContent: "center", height: 20, }}>
+                                    <View style={{ alignItems: "center", justifyContent: "center", width: "100%", }}>
+                                        <Text styles={{ fontWeight: 200, fontSize: 18 }}>${item.itemAmount}</Text>
                                     </View>
+
                                 </View>
                                 <Divider style={{ backgroundColor: '#999' }} />
-                                <View style={{ top: 5 }}>
-                                    <Text>itemDescription: {item.itemDescription}</Text>
+                                <View style={{ height: 70, alignItems: "center", justifyContent: "center" }}>
+                                    <TouchableOpacity onPress={() => { addcart(item) }} style={{ backgroundColor: "#4287f5", width: 85, height: 30, alignItems: "center", justifyContent: "center", borderRadius: 5 }}>
+                                        <Text style={{ color: "#fff" }}>Add to Cart</Text>
+                                    </TouchableOpacity>
                                 </View>
 
                             </View>
 
                         )}
-
+                        numColumns={2}
                         ListFooterComponent={<View style={{ flexGrow: 1, justifyContent: 'flex-end', height: 20 }} />}
                         keyExtractor={(item, index) => `quotes_${index}`} />
-
-                    {/* <TouchableHighlight style={styles.floatingButton}
-                        underlayColor='#ff7043'
-                        onPress={() => navigation.navigate('product_add')}>
-                        <Text style={{ fontSize: 25, color: 'white' }}>+</Text>
-                    </TouchableHighlight> */}
                 </Content>
             </Container>
 
@@ -193,7 +217,9 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
+
         backgroundColor: "transparent",
+        width: "100%"
     },
 
     activityIndicatorContainer: {

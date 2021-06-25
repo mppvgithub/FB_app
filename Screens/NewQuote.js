@@ -60,7 +60,8 @@ export default function NewQuote(props) {
             if (err) alert(err.message);
             else if (quotes !== null) {
                 quotes = JSON.parse(quotes);
-
+console.log("quotes", quotes)
+console.log("quote_", quote_)
                 if (!edit) {
                     //add the new quote to the top
                     quotes.unshift(quote_);

@@ -5,15 +5,16 @@ import { Divider } from 'react-native-elements';
 // import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { get_addQuotes, deleteQuote } from "./stores/actions";
-
+import {BASE_URL} from '../config/Constants'
 import { Container, Content, Header, Row, Col, } from 'native-base'
 // import ListItem from "./ListItem";
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 LogBox.ignoreAllLogs(true)
 export default function product_edit(props) {
     const dispatch = useDispatch();
     const { navigation } = props;
 
-    const BASE_URL = 'http://192.168.43.137:9000';
+    // const BASE_URL = 'http://192.168.43.137:9000';
 
 
     //1 - DECLARE VARIABLES
@@ -73,6 +74,7 @@ export default function product_edit(props) {
         }).then((response) => response.json())
             .then(async (res) => {
                 console.log("update_menu res", res)
+                navigation.navigate('product_list')
             }).catch((error) => {
                 console.log("entire_details error", error)
             });
@@ -85,18 +87,20 @@ export default function product_edit(props) {
 
     return (
         <Container>
-            <Header>
-                <Row style={{ width: "100%" }}>
-                    <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
-                        <Text onPress={() => { navigation.navigate("product_list") }}>Menu</Text>
-                    </View>
-                    <View style={{ backgroundColor: "red", alignItems: "center", justifyContent: "center", width: "60%" }}>
-                        <Text>Menu edit</Text>
-                    </View>
-                    <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
-                        {/* <Text>Next</Text> */}
-                    </View>
-                </Row>
+            <Header style={{ backgroundColor: "transparent" }}>
+                
+                <Row style={{ width: "100%", }}>
+                        <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
+                            {/* <Text onPress={() => { navigation.navigate("mongo_curd") }}>Back</Text> */}
+                            <FontAwesome onPress={() => { navigation.navigate("product_list") }} style={{ color: "#000", fontSize: 30, }} name={"hand-o-left"} />
+                        </View>
+                        <View style={{ alignItems: "center", justifyContent: "center", width: "60%" }}>
+                            <Text>Edit Product</Text>
+                        </View>
+                        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", width: "20%" }}>
+                            
+                        </View>
+                    </Row>
             </Header>
             <Content style={{ paddingLeft: 20, paddingRight: 20 }}>
                 <View style={styles.view_style}>

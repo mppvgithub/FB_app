@@ -17,10 +17,10 @@ export default function dashboard(props) {
 
     const [name, setName] = useState("")
 
-    useEffect(()=>{
+    useEffect(() => {
         AsyncStorage.getItem('login', (err, data) => {
-           
-            console.log("login status",data)
+
+            console.log("login status", data)
         });
     })
     useEffect(() => {
@@ -129,12 +129,38 @@ export default function dashboard(props) {
                         <TouchableOpacity onPress={() => { navigation.navigate('mongo_curd') }} style={styles.card}>
                             <Col style={{ alignItems: "center", justifyContent: "center" }} >
                                 <Row style={{ height: screenHeight * 0.08 }}>
+                                    <Image source={require('../assets/img/db.png')} style={{ flex: 1, marginLeft: 8, width: null, height: null, resizeMode: "contain" }} />
                                 </Row>
                                 <Row style={{ height: "3%" }}></Row>
                                 <Text style={{ fontSize: RFValue(12), textAlign: "center" }}>Mongodb crud</Text>
                             </Col>
                         </TouchableOpacity>
                     </Col>
+
+                </Row>
+                <Row style={{ paddingLeft: 10, paddingRight: 10, height: screenHeight * 0.2, }}>
+                    <Col style={{ padding: 5 }}>
+                        <TouchableOpacity onPress={() => {  AsyncStorage.clear(); }} style={styles.card}>
+                            <Col style={{ alignItems: "center", justifyContent: "center" }} >
+                                <Row style={{ height: screenHeight * 0.08 }}>
+                                    {/* <Image source={require('../assets/img/dashboard_img2.png')} style={{ flex: 1, marginLeft: 8, width: null, height: null, resizeMode: "contain" }} /> */}
+                                </Row>
+                                <Row style={{ height: "3%" }}></Row>
+                                <Text style={{ fontSize: RFValue(12), textAlign: "center" }}>Clear AsyncStorage</Text>
+                            </Col>
+                        </TouchableOpacity>
+                    </Col>
+                    {/* <Col style={{ padding: 5 }}>
+                        <TouchableOpacity onPress={() => { navigation.navigate('mongo_curd') }} style={styles.card}>
+                            <Col style={{ alignItems: "center", justifyContent: "center" }} >
+                                <Row style={{ height: screenHeight * 0.08 }}>
+                                    <Image source={require('../assets/img/db.png')} style={{ flex: 1, marginLeft: 8, width: null, height: null, resizeMode: "contain" }} />
+                                </Row>
+                                <Row style={{ height: "3%" }}></Row>
+                                <Text style={{ fontSize: RFValue(12), textAlign: "center" }}>Mongodb crud</Text>
+                            </Col>
+                        </TouchableOpacity>
+                    </Col> */}
 
                 </Row>
                 <Row style={{ height: 20 }}></Row>
