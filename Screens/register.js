@@ -1,7 +1,7 @@
 //This is an example code for Navigator//
 import React, { Component } from 'react';
 import { Container, Header, Left, Body, Right, Button, Title, Icon, Content, Row, Col } from 'native-base';
-import { Platform, StyleSheet, Text, View, Image, TouchableHighlight, Dimensions, ImageBackground, TextInput, ScrollView, Alert, StatusBar, BackHandler, Keyboard, AsyncStorage } from 'react-native';
+import { Platform, StyleSheet, Text, View, Image, TouchableHighlight, Dimensions,TouchableOpacity, ImageBackground, TextInput, ScrollView, Alert, StatusBar, BackHandler, Keyboard, AsyncStorage } from 'react-native';
 import { fb } from '../config/ConfigFirebase';
 import UUIDGenerator from 'react-native-uuid-generator';
 import * as colors from '../assets/css/Colors';
@@ -98,66 +98,70 @@ export default class login extends Component {
           // dark-content, light-content and default
           hidden={false}
           //To hide statusBar
-          backgroundColor={"#141b24"}
+          backgroundColor={"blue"}
           //Background color of statusBar only works for Android
           translucent={false}
           //allowing light, but not detailed shapes
           networkActivityIndicatorVisible={true}
         />
         <Container style={{ alignItems: "center", justifyContent: "center", height: "100%", width: "100%", backgroundColor: colors.bg }}>
+          <Content>
+            <View style={{ marginTop: 55, marginBottom: 20, height: 110, alignItems: "center", justifyContent: "center" }}>
+              <Image source={require('../assets/img/logo.png')} style={{ marginLeft: 1, width: 100, height: 100, resizeMode: "contain" }} />
+
+            </View>
+            <View style={{ width: "100%", paddingLeft: 10, flexDirection: "row", alignItems: "center", paddingRight: 25 }}>
+              {/* <MaterialCommunityIcons style={{ color: colors.blue, fontSize: 70, }} name={"book-open-page-variant"} />
+            <Text style={{ fontSize: 30, color: colors.blue }}><Text style={{ color: colors.red }}>U</Text>sername<Text style={{ color: colors.red }}>*</Text></Text> */}
+              <Image source={require('../assets/img/username.png')} style={{ marginLeft: 1, width: 40, height: 40, resizeMode: "contain" }} />
+
+              <TextInput
+                style={styles.emailaddress}
+                onChangeText={TextInputValue =>
+                  this.setState({ user_name: TextInputValue })}
+                placeholder={"Username *"}
+              />
+            </View>
 
 
-          <View style={{ width: "100%", paddingLeft: 30 }}>
-          <MaterialCommunityIcons style={{ color: colors.blue, fontSize: 70, }} name={"book-open-page-variant"} />
-            <Text style={{ fontSize: 30, color: colors.blue }}><Text style={{ color: colors.red }}>U</Text>sername<Text style={{ color: colors.red }}>*</Text></Text>
-            <TextInput
-              style={styles.emailaddress}
-              onChangeText={TextInputValue =>
-                this.setState({ user_name: TextInputValue })}
-              placeholder={"Username *"}
-              placeholderTextColor={"#d9e9fc"}
-            />
-          </View>
+            <View style={{ width: "100%", paddingLeft: 10, flexDirection: "row", alignItems: "center", paddingRight: 25 }}>
+              {/* <Text style={{ fontSize: 30, color: colors.blue }}><Text style={{ color: colors.red }}>E</Text>mail<Text style={{ color: colors.red }}>*</Text></Text> */}
+              <Image source={require('../assets/img/email.png')} style={{ marginLeft: 1, width: 40, height: 40, resizeMode: "contain" }} />
+
+              <TextInput
+                style={styles.emailaddress}
+                onChangeText={TextInputValue =>
+                  this.setState({ email: TextInputValue })}
+                placeholder={"Email Address *"}
 
 
-          <View style={{ width: "100%", paddingLeft: 30 }}>
-            <Text style={{ fontSize: 30, color: colors.blue }}><Text style={{ color: colors.red }}>E</Text>mail<Text style={{ color: colors.red }}>*</Text></Text>
-            <TextInput
-              style={styles.emailaddress}
-              onChangeText={TextInputValue =>
-                this.setState({ email: TextInputValue })}
-              placeholder={" Email Id in Uplogic *"}
-              placeholderTextColor={"#d9e9fc"}
+                keyboardType="email-address"
+              />
+            </View>
+            <View style={{ width: "100%", paddingLeft: 10, flexDirection: "row", alignItems: "center", paddingRight: 25 }}>
+              {/* <Text style={{ fontSize: 30, color: colors.blue }}><Text style={{ color: colors.red }}>p</Text>assword<Text style={{ color: colors.red }}>*</Text></Text> */}
+              <Image source={require('../assets/img/password.png')} style={{ marginLeft: 1, width: 40, height: 40, resizeMode: "contain" }} />
 
+              <TextInput
+                style={styles.emailaddress}
+                onChangeText={TextInputValue =>
+                  this.setState({ password: TextInputValue })}
+                placeholder={"Password *"}
+                secureTextEntry={true}
+              />
+            </View>
 
-              keyboardType="email-address"
-            />
-          </View>
-          <View style={{ width: "100%", paddingLeft: 30 }}>
-            <Text style={{ fontSize: 30, color: colors.blue }}><Text style={{ color: colors.red }}>p</Text>assword<Text style={{ color: colors.red }}>*</Text></Text>
-            <TextInput
-              style={styles.emailaddress}
-              onChangeText={TextInputValue =>
-                this.setState({ password: TextInputValue })}
-              placeholder={"Password *"}
-              placeholderTextColor={"#d9e9fc"}
-              secureTextEntry={true}
-            />
-          </View>
-
-          <View style={{ alignItems: "center", justifyContent: "center" }}>
-            <Button onPress={() => { this.register_check() }} style={{
-              backgroundColor: "#fff", alignItems: "center", justifyContent: "center", borderColor: "#fff",
-              borderWidth: 1,
-              borderRadius: 20,
-              backgroundColor: "#fff", marginTop: 20, width: 200, height: 50
-            }}>
-              <Text style={{ fontSize: 25, color: colors.blue }}><Text style={{ color: colors.red }}>R</Text>egister</Text>
-            </Button>
-            <Text onPress={() => { this.props.navigation.navigate("login") }} style={{ fontSize: 20, top: 15, color: colors.blue }}><Text style={{ color: colors.red }}>Log</Text>in?</Text>
-            {/* <Text onPress={() => { this.props.navigation.navigate("login") }} style={{ color: "#fff", marginTop: 10, fontWeight: "bold" }}>Login?</Text> */}
-          </View>
-
+            <View style={{ alignItems: "center", justifyContent: "center" }}>
+              <TouchableOpacity onPress={() => { this.register_check() }} style={{
+              //  alignItems: "center",justifyContent: "center",
+               marginTop: 20, width: 200, height: 50
+              }}>
+                <Image source={require('../assets/img/login1.png')} style={{ flex: 1, marginLeft: 8, width: null, height: null, resizeMode: "contain" }} />
+              </TouchableOpacity>
+              <Text onPress={() => { this.props.navigation.navigate("login") }} style={{ fontSize: 20, marginTop: 15, color: colors.blue , textAlign:"center" }}>Login?</Text>
+              {/* <Text onPress={() => { this.props.navigation.navigate("login") }} style={{ color: "#fff", marginTop: 10, fontWeight: "bold" }}>Login?</Text> */}
+            </View>
+          </Content>
 
         </Container>
       </Container>
@@ -177,11 +181,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderColor: "#fff",
     borderWidth: 1,
-    fontSize: 13,
+    fontSize: 15,
     borderRadius: 20,
-    backgroundColor: "#fff",
+    backgroundColor: "#e1ebfc",
     padding: 10,
     paddingLeft: 20,
+    left: 10,
     color: colors.blue
     // fontFamily:"robato"
   },

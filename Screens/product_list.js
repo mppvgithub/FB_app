@@ -13,11 +13,14 @@ import {
     TouchableOpacity, Image
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { useIsFocused } from '@react-navigation/native';
 import { Divider } from 'react-native-elements';
 // import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { get_addQuotes, deleteQuote } from "./stores/actions";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+
 import { Container, Content, Header, Col, Row } from 'native-base'
 import {BASE_URL} from '../config/Constants'
 
@@ -25,6 +28,7 @@ import {BASE_URL} from '../config/Constants'
 LogBox.ignoreAllLogs(true)
 export default function Home(props) {
     const dispatch = useDispatch();
+    const isFocused = useIsFocused();
     const { navigation } = props;
 
     // const BASE_URL = 'http://192.168.43.137:9000';
@@ -46,6 +50,17 @@ export default function Home(props) {
         getData()
     }, []);
 
+    // useEffect(() => {
+    //     const unsubscribe = navigation.addListener('focus', () => {
+    //      console.log("refresh navigation")
+    //     });
+    //     return unsubscribe;
+    //   }, [navigation]);
+
+    // useEffect(() => {
+    //     console.log("refresh isFocused")
+    // }, [isFocused]);
+
     useEffect(() => {
         const backAction = () => {
             navigation.navigate("dashboard")
@@ -58,7 +73,8 @@ export default function Home(props) {
     //==================================================================================================
 
     //3 - GET FLATLIST DATA
-    const getData = () => {
+    const getData = async () => {
+       await setProduct_details([])
         fetch(BASE_URL + "/menus_list", {
             method: 'post',
             headers: {
@@ -125,12 +141,12 @@ export default function Home(props) {
                             <FontAwesome onPress={() => { navigation.navigate("mongo_curd") }} style={{ color: "#000", fontSize: 30, }} name={"hand-o-left"} />
                         </View>
                         <View style={{ alignItems: "center", justifyContent: "center", width: "60%" }}>
-                            <Text>Buy Product</Text>
+                            <Text>Product List</Text>
                         </View>
                         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", width: "20%" }}>
                             <TouchableOpacity
                                 onPress={() => navigation.navigate('product_add')}>
-                                <Image source={require('../assets/img/add.png')} style={{ flex: 1, marginLeft: 8, width: 30, height: 30, resizeMode: "contain" }} />
+                                <Image source={require('../assets/img/add1.png')} style={{ flex: 1, marginLeft: 8, width: 30, height: 30, resizeMode: "contain" }} />
 
                             </TouchableOpacity>
                         </View>
@@ -158,16 +174,20 @@ export default function Home(props) {
                                     </View>
                                     <View style={{ justifyContent: "center", width: "50%", flexDirection: "row" }}>
                                         <TouchableOpacity onPress={() => { navigation.navigate('product_edit', { menu: item }) }} style={{ alignItems: "center", width: "70%", flexDirection: "row-reverse" }}>
-                                            <Text style={{ textAlign: "right", color: "blue" }}>EDIT</Text>
+                                            {/* <Text style={{ textAlign: "right", color: "blue" }}>EDIT</Text> */}
+                                            <FontAwesome  style={{ color: "blue", fontSize: 20, }} name={"edit"} />
+
                                         </TouchableOpacity>
                                         <TouchableOpacity onPress={() => { onDelete(item) }} style={{ alignItems: "center", width: "30%", flexDirection: "row-reverse" }}>
-                                            <Text style={{ textAlign: "right", color: "red" }}>Delete</Text>
+                                            {/* <Text style={{ textAlign: "right", color: "red" }}>Delete</Text> */}
+                                            <AntDesign  style={{ color: "red", fontSize: 20, }} name={"delete"} />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
                                 <Divider style={{ backgroundColor: '#999' }} />
                                 <View style={{ top: 5 }}>
-                                    <Text>itemDescription: {item.itemDescription}</Text>
+                                <Text>Available Quantity: {item.itemQty}</Text>
+                                    <Text>Description: {item.itemDescription}</Text>
                                 </View>
 
                             </View>

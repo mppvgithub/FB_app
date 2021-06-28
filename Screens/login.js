@@ -1,7 +1,7 @@
 //This is an example code for Navigator//
 import React, { Component } from 'react';
 import { Container, Header, Left, Body, Right, Button, Title, Icon, Content, Row, Col } from 'native-base';
-import { Platform, StyleSheet, Text, View, Image, TouchableHighlight, Dimensions, ImageBackground, TextInput, ScrollView, Alert, StatusBar, BackHandler, Keyboard } from 'react-native';
+import { Platform, StyleSheet, Text, View, Image, TouchableHighlight, TouchableOpacity, Dimensions, ImageBackground, TextInput, ScrollView, Alert, StatusBar, BackHandler, Keyboard } from 'react-native';
 import { fb } from '../config/ConfigFirebase';
 import * as colors from '../assets/css/Colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -35,13 +35,13 @@ export default class login extends Component {
   handleBackButtonClick() {
     Alert.alert("Exit!", "Are you sure you want to exit?", [
       {
-          text: "Cancel",
-          onPress: () => null,
-          style: "cancel"
+        text: "Cancel",
+        onPress: () => null,
+        style: "cancel"
       },
       { text: "YES", onPress: () => BackHandler.exitApp() }
-  ]);
-  return true;
+    ]);
+    return true;
     // this.props.navigation.goBack(null);
     return true;
 
@@ -91,13 +91,13 @@ export default class login extends Component {
   render() {
     // const { navigate } = this.props.navigation;
     return (
-      <Container >
+      <Container>
         <StatusBar
           barStyle="light-content"
           // dark-content, light-content and default
           hidden={false}
           //To hide statusBar
-          backgroundColor={colors.bg}
+          backgroundColor={"blue"}
           //Background color of statusBar only works for Android
           translucent={false}
           //allowing light, but not detailed shapes
@@ -105,51 +105,57 @@ export default class login extends Component {
         />
         {/* <ImageBackground source={require('../images/bg_pic.jpg')} style={{ height: "100%", width: "100%" }}> */}
         <Container style={{ alignItems: "center", justifyContent: "center", height: "100%", width: "100%", backgroundColor: colors.bg }}>
-          {/* <Image
-          style={styles.loginuser}
-          source={require('.././img/login_user.png')}
-        /> */}
+          <Content>
+            <View style={{marginTop:55,marginBottom:20, height: 110, alignItems: "center", justifyContent: "center" }}>
+              <Image source={require('../assets/img/logo.png')} style={{ marginLeft: 1, width: 100, height: 100, resizeMode: "contain" }} />
 
-          <View style={{ width: "100%", paddingLeft: 30 }}>
-            <MaterialCommunityIcons style={{ color: colors.blue, fontSize: 70, }} name={"book-open-page-variant"} />
-            <Text style={{ fontSize: 35, color: colors.blue }}><Text style={{ color: colors.red }}>E</Text>mail<Text style={{ color: colors.red }}>*</Text></Text>
-            <TextInput
-              style={styles.emailaddress}
-              onChangeText={TextInputValue =>
-                this.setState({ email: TextInputValue })}
-              placeholder={"prasanna@gmail.com"}
+            </View>
 
-              keyboardType="email-address"
-            />
-          </View>
+            <View style={{ width: "100%", paddingLeft: 10, flexDirection: "row", alignItems: "center", paddingRight: 25 }}>
+              {/* <MaterialCommunityIcons style={{ color: colors.blue, fontSize: 70, }} name={"book-open-page-variant"} /> */}
+              {/* <Text style={{ fontSize: 35, color: colors.blue }}><Text style={{ color: colors.red }}>E</Text>mail<Text style={{ color: colors.red }}>*</Text></Text> */}
+              <Image source={require('../assets/img/email.png')} style={{  marginLeft: 1, width: 40, height: 40, resizeMode: "contain" }} />
+              <TextInput
+                style={styles.emailaddress}
+                onChangeText={TextInputValue =>
+                  this.setState({ email: TextInputValue })}
+                placeholder={"prasanna@gmail.com"}
 
-          <View style={{ width: "100%", paddingLeft: 30 }}>
-            <Text style={{ fontSize: 35, color: colors.blue }}><Text style={{ color: colors.red }}>P</Text>assword<Text style={{ color: colors.red }}>*</Text></Text>
-            <TextInput
-              style={styles.emailaddress}
-              onChangeText={TextInputValue =>
-                this.setState({ password: TextInputValue })}
-              placeholder={"******"}
-              secureTextEntry={true}
-            />
-          </View>
+                keyboardType="email-address"
+              />
+            </View>
+
+            <View style={{ width: "100%", paddingLeft: 10, flexDirection: "row", alignItems: "center", paddingRight: 25 }}>
+              {/* <Text style={{ fontSize: 35, color: colors.blue }}><Text style={{ color: colors.red }}>P</Text>assword<Text style={{ color: colors.red }}>*</Text></Text> */}
+              <Image source={require('../assets/img/password.png')} style={{  marginLeft: 1, width: 40, height: 40, resizeMode: "contain" }} />
+              <TextInput
+                style={styles.emailaddress}
+                onChangeText={TextInputValue =>
+                  this.setState({ password: TextInputValue })}
+                placeholder={"******"}
+                secureTextEntry={true}
+              />
+            </View>
 
 
 
 
-          <View style={{ alignItems: "center", justifyContent: "center" }}>
-            <Button onPress={() => { this.dashboard() }} style={{
-              backgroundColor: "#fff", alignItems: "center", justifyContent: "center", borderColor: "#fff",
-              borderWidth: 1,
-              fontSize: 15,
-              borderRadius: 20,
-              backgroundColor: "#fff", marginTop: 20, width: 200, height: 50
-            }}>
-              <Text style={{ fontSize: 30, color: colors.blue }}><Text style={{ color: colors.red }}>Log</Text>in</Text>
-            </Button>
-            <Text onPress={() => { this.props.navigation.navigate("register") }} style={{ fontSize: 20, top: 15, color: colors.blue }}><Text style={{ color: colors.red }}>New</Text>User?</Text>
-            {/* <Text  style={{ color: "#fff", marginTop: 10, fontWeight: "bold" }}>New User?</Text> */}
-          </View>
+            <View style={{ alignItems: "center", justifyContent: "center" }}>
+              <TouchableOpacity onPress={() => { this.dashboard() }} style={{
+                // backgroundColor: "#e1ebfc", alignItems: "center", justifyContent: "center", borderColor: "#fff",
+                // borderWidth: 1,
+                // fontSize: 15,
+                // borderRadius: 20,
+                marginTop: 20, width: 200, height: 50
+              }}>
+                <Image source={require('../assets/img/login1.png')} style={{ flex: 1, marginLeft: 8, width: null, height: null, resizeMode: "contain" }} />
+                {/* <Text style={{ fontSize: 30, color: colors.blue }}><Text style={{ color: colors.red }}>Log</Text>in</Text> */}
+              </TouchableOpacity>
+              <Text onPress={() => { this.props.navigation.navigate("register") }} style={{ fontSize: 20, marginTop: 15, color: colors.red }}>Register?</Text>
+              {/* <Text  style={{ color: "#fff", marginTop: 10, fontWeight: "bold" }}>New User?</Text> */}
+            </View>
+          </Content>
+
         </Container>
 
 
@@ -174,9 +180,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     fontSize: 15,
     borderRadius: 20,
-    backgroundColor: "#fff",
+    backgroundColor: "#e1ebfc",
     padding: 10,
     paddingLeft: 20,
+    left:10,
     color: colors.blue
     // fontFamily:"robato"
   },

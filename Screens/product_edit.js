@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, SafeAreaView, View, Text, ActivityIndicator, TouchableHighlight, BackHandler, LogBox, TextInput, Alert, TouchableOpacity } from 'react-native';
+import { FlatList, StyleSheet, SafeAreaView, Image,View, Text, ActivityIndicator, TouchableHighlight, BackHandler, LogBox, TextInput, Alert, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Divider } from 'react-native-elements';
 // import axios from 'axios';
@@ -22,6 +22,7 @@ export default function product_edit(props) {
     const [itemId, setitemId] = useState("");
     const [itemDescription, setitemDescription] = useState("");
     const [itemAmount, setitemAmount] = useState(0);
+    const [itemQty, setitemQty] = useState(0);
 
     let menu_data = {}
 
@@ -37,7 +38,7 @@ export default function product_edit(props) {
 
     useEffect(() => {
         const backAction = () => {
-            navigation.navigate("dashboard")
+            navigation.navigate("product_list")
             return true;
         };
         const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
@@ -50,7 +51,8 @@ export default function product_edit(props) {
         await setitemDescription(menu_data.itemDescription);
         await setitemAmount(menu_data.itemAmount);
         await setitemId(menu_data.itemId)
-        await console.log("menu_data", menu_data, itemName, itemDescription, itemAmount, itemId)
+        await setitemQty(menu_data.itemQty)
+        await console.log("menu_data", menu_data, itemName, itemDescription, itemAmount, itemId,itemQty)
     }
     //==================================================================================================
 
@@ -68,6 +70,7 @@ export default function product_edit(props) {
                 "itemAmount": itemAmount,
                 "itemDescription": itemDescription,
                 "itemId": itemId,
+                "itemQty": itemQty,
                 // "itemImage": menu_data.itemImage,
                 "itemName": itemName,
             })
@@ -104,10 +107,10 @@ export default function product_edit(props) {
             </Header>
             <Content style={{ paddingLeft: 20, paddingRight: 20 }}>
                 <View style={styles.view_style}>
-                    <Text>itemId: {itemId}</Text>
+                    <Text  style={styles.input}>Item ID: {itemId}</Text>
                 </View>
                 <View style={styles.view_style}>
-                    <Text>itemName</Text>
+                    <Text>Item Name</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={(text) => { setitemName(text) }}
@@ -116,7 +119,7 @@ export default function product_edit(props) {
                     />
                 </View>
                 <View style={styles.view_style}>
-                    <Text>itemAmount</Text>
+                    <Text>Price</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={(text) => { setitemAmount(text) }}
@@ -127,7 +130,18 @@ export default function product_edit(props) {
                     />
                 </View>
                 <View style={styles.view_style}>
-                    <Text>itemDescription</Text>
+                    <Text>Quantity</Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={(text) => { setitemQty(text) }}
+                        value={itemQty}
+                        placeholder="itemQty"
+                        keyboardType="numeric"
+
+                    />
+                </View>
+                <View style={styles.view_style}>
+                    <Text>Description</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={(text) => { setitemDescription(text) }}
@@ -137,14 +151,15 @@ export default function product_edit(props) {
                 </View>
                 <View style={styles.view_style, { height: 50, marginTop: 20, alignItems: "center", justifyContent: "center" }}>
 
-                    <TouchableOpacity style={{ width: 80, height: 40, backgroundColor: "#a3a3a3", alignItems: "center", justifyContent: "center" }}
+                    <TouchableOpacity style={{ alignItems: "center", justifyContent: "center" }}
                         onPress={() => {
                             update_data()
                         }}>
-                        <Text>Update</Text>
+                        <Image source={require('../assets/img/update.png')} style={{ flex: 1, marginLeft: 8, width: 50, height: 50, resizeMode: "contain" }} />
                     </TouchableOpacity>
                 </View>
 
+<View style={{height: 20 }}></View>
             </Content>
         </Container>
     );
@@ -171,8 +186,16 @@ const styles = StyleSheet.create({
     },
 
     input: {
-        height: 40,
-        margin: 12,
+        height: 50,
+        width: "95%",
+        marginTop: 20,
+        marginBottom: 20,
+        borderColor: "#fff",
         borderWidth: 1,
+        fontSize: 15,
+        borderRadius: 20,
+        backgroundColor: "#e1ebfc",
+        padding: 10,
+        paddingLeft: 20,
     },
 });

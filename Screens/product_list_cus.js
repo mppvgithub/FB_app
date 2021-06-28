@@ -10,7 +10,8 @@ import {
     BackHandler,
     LogBox,
     Alert,
-    TouchableOpacity
+    TouchableOpacity,
+    Image
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { get_addQuotes, get_addMenu, deleteQuote, add_menu } from "./stores/actions";
@@ -157,7 +158,8 @@ export default function product_list_cus(props) {
                         <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
                             {/* <Text>Next</Text> */}
                             <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }} onPress={() => { navigation.navigate("cart") }}>
-                                <FontAwesome style={{ color: "#000", fontSize: 30, }} name={"opencart"} />
+                                {/* <FontAwesome style={{ color: "#000", fontSize: 30, }} name={"opencart"} /> */}
+                                <Image source={require('../assets/img/cart.png')} style={{  width: 25, height: 25, resizeMode: "contain" }} />
                                 <Text style={{ backgroundColor: "red", borderRadius: 10, color: "#fff", fontSize: 10 }}>  {menus.length}  </Text>
 
                             </TouchableOpacity>
@@ -171,7 +173,6 @@ export default function product_list_cus(props) {
                         renderItem={({ item, index }) => (
                             <View style={{
                                 height: 150, width: "47%", marginTop: 10, marginLeft: '2%',
-                                backgroundColor: "white",
                                 borderRadius: 15,
                                 padding: 10,
                                 elevation: 10,
@@ -179,7 +180,7 @@ export default function product_list_cus(props) {
                                 shadowOffset: { width: 0, height: 3 },
                                 shadowOpacity: 0.5,
                                 shadowRadius: 5,
-                                backgroundColor: "#fad6c3"
+                                backgroundColor: "#ffc47d"
                             }}>
                                 <View style={{ alignItems: "center", justifyContent: "center", height: 60, }}>
                                     <View style={{ alignItems: "center", justifyContent: "center", width: "100%", }}>

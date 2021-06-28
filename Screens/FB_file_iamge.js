@@ -12,6 +12,8 @@ import ImageResizer from 'react-native-image-resizer';
 import DocumentPicker from "react-native-document-picker";
 import storage from "@react-native-firebase/storage";
 import RNFS from 'react-native-fs'
+import { Divider } from 'react-native-elements';
+
 import RNFetchBlob from 'rn-fetch-blob'
 const { width, height } = Dimensions.get('window')
 
@@ -49,16 +51,16 @@ export default function FB_file_iamge({ navigation }) {
   const [deviceid, setDeviceid] = useState('eye-off');
   const [app, setApp] = useState(Platform.OS);
 
-  const default_user = require('../images/user_default.png');
+  const default_user = require('../assets/img/default_user.png');
   useEffect(() => {
-     const backAction = () => {
+    const backAction = () => {
       // navigation.navigate('dashboard');
       navigation.goBack(null)
-            return true;
-        };
+      return true;
+    };
 
-        const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
-        return () => backHandler.remove();
+    const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+    return () => backHandler.remove();
   }, []);
 
   async function pick_img() {
@@ -339,21 +341,19 @@ export default function FB_file_iamge({ navigation }) {
 
 
   return (
-    <Container style={{ backgroundColor: colors.bg }}>
+    <Container >
 
       <StatusBar translucent={false} backgroundColor={colors.bg} barStyle="dark-content" />
 
       <Content>
 
-        <View style={{ margin: '5%', marginLeft: 20, marginBottom: 0 }}>
-          <Grid>
-            <Col>
-              <Text style={{ fontSize: 20, color: "#a3a3a3", fontFamily: "Helvetica-Bold" }}>Welcome</Text>
-            </Col>
-          </Grid>
+        <View style={{ margin: '5%', alignItems: "center", justifyContent: "center"}}>
+         
+              <Text style={{ fontSize: 20, color: "#a3a3a3", fontFamily: "Helvetica-Bold" , textAlign: "center", color:"orange" }}>Firebase Image & File</Text>
+           
         </View>
 
-        <Row style={{ alignItems: "center", justifyContent: "center" }}>
+        <Row style={{ alignItems: "center", justifyContent: "center", marginTop:20 }}>
 
           <Image
             style={{ width: 100, height: 100, borderRadius: 50, borderWidth: 1 }}
@@ -362,84 +362,55 @@ export default function FB_file_iamge({ navigation }) {
 
         </Row>
 
-        <Row style={{ margin: 10, alignItems: "center", justifyContent: "center" }}>
-          <Text onPress={pick_img} style={{ fontSize: 17 }}>Take image</Text>
-        </Row>
-        <Row style={{ alignItems: "center", justifyContent: "center", marginTop: 30 }}>
-          <Text onPress={() => { upload_image() }} style={{ fontSize: 20, color: colors.blue }}>Post Image</Text>
+        <View style={{ width: "100%", paddingLeft: 10, flexDirection: "row", alignItems: "center", paddingRight: 25 }}>
 
-        </Row>
-        <Row style={{ alignItems: "center", justifyContent: "center", marginTop: 30 }}>
-          <Text onPress={() => { download_image() }} style={{ fontSize: 20, color: colors.blue }}>Download Image</Text>
+          <TouchableOpacity onPress={pick_img} style={styles.emailaddress}>
+            <Text>Take image</Text>
+          </TouchableOpacity>
 
-        </Row>
-        <Row style={{ alignItems: "center", justifyContent: "center", marginTop: 30 }}>
-          <Text onPress={() => { _chooseFile() }} style={{ fontSize: 20, color: colors.blue }}>Choose file</Text>
 
-        </Row>
-        <Row style={{ alignItems: "center", justifyContent: "center", marginTop: 30 }}>
-          <Text onPress={() => { _uploadFile() }} style={{ fontSize: 20, color: colors.blue }}>upload file</Text>
-
-        </Row>
-        <Row style={{ alignItems: "center", justifyContent: "center", marginTop: 30 }}>
-          <Text onPress={() => { download_file() }} style={{ fontSize: 20, color: colors.blue }}>Download file</Text>
-
-        </Row>
-
-        <View style={{ width: "100%", paddingLeft: 30 }}>
-          {/* <MaterialCommunityIcons style={{ color: colors.blue, fontSize: 70, }} name={"book-open-page-variant"} /> */}
-          <Text style={{ fontSize: 20, color: colors.blue }}><Text style={{ fontSize: 20, color: colors.red }}>U</Text>sername<Text style={{ color: colors.red }}>*</Text></Text>
-          <TextInput
-            style={styles.emailaddress}
-            onChangeText={TextInputValue =>
-              setUser_name(TextInputValue)}
-            placeholder={"Username *"}
-            placeholderTextColor={"#d9e9fc"}
-          />
         </View>
 
 
-        <View style={{ width: "100%", paddingLeft: 30 }}>
-          <Text style={{ fontSize: 20, color: colors.blue }}><Text style={{ fontSize: 20, color: colors.red }}>E</Text>mail<Text style={{ color: colors.red }}>*</Text></Text>
-          <TextInput
-            style={styles.emailaddress}
-            onChangeText={TextInputValue =>
-              setEmail(TextInputValue)}
-            placeholder={" Email Id in Uplogic *"}
-            placeholderTextColor={"#d9e9fc"}
+        <View style={{ width: "100%", paddingLeft: 10, flexDirection: "row", alignItems: "center", paddingRight: 25 }}>
+
+          <TouchableOpacity onPress={() => { upload_image() }} style={styles.emailaddress}>
+            <Text >Post Image</Text>
+          </TouchableOpacity>
 
 
-            keyboardType="email-address"
-          />
         </View>
-        <View style={{ width: "100%", paddingLeft: 30 }}>
-          <Text style={{ fontSize: 20, color: colors.blue }}><Text style={{ fontSize: 20, color: colors.red }}>p</Text>assword<Text style={{ color: colors.red }}>*</Text></Text>
-          <TextInput
-            style={styles.emailaddress}
-            onChangeText={TextInputValue =>
-              setPassword(TextInputValue)}
-            placeholder={"Password *"}
-            placeholderTextColor={"#d9e9fc"}
-            secureTextEntry={true}
-          />
+        <View style={{ width: "100%", paddingLeft: 10, flexDirection: "row", alignItems: "center", paddingRight: 25 }}>
+          <TouchableOpacity onPress={() => { download_image() }} style={styles.emailaddress}>
+            <Text  >Download Image</Text>
+
+          </TouchableOpacity>
+
+        </View>
+        <Divider style={{ backgroundColor: '#999'}}/>
+        <View style={{ width: "100%", paddingLeft: 10, flexDirection: "row", alignItems: "center", paddingRight: 25 }}>
+          <TouchableOpacity onPress={() => { _chooseFile() }} style={styles.emailaddress}>
+            <Text >Choose file</Text>
+          </TouchableOpacity>
+
+
+        </View>
+        <View style={{ width: "100%", paddingLeft: 10, flexDirection: "row", alignItems: "center", paddingRight: 25 }}>
+          <TouchableOpacity onPress={() => { _uploadFile() }} style={styles.emailaddress}>
+            <Text >upload file</Text>
+
+          </TouchableOpacity>
+
+        </View>
+        <View style={{ width: "100%", paddingLeft: 10, flexDirection: "row", alignItems: "center", paddingRight: 25 }}>
+          <TouchableOpacity onPress={() => { download_file() }} style={styles.emailaddress}>
+            <Text >Download file</Text>
+
+          </TouchableOpacity>
+
         </View>
 
-        <Row style={{ alignItems: "center", justifyContent: "center" }}>
-          <Button onPress={() => { register_check() }} style={{
-            alignItems: "center", justifyContent: "center",
-            borderRadius: 20,
-            backgroundColor: "#fff", marginTop: 20, width: 200, height: 50
-          }}>
-            <Text style={{ fontSize: 20, color: colors.blue }}><Text style={{ fontSize: 20, color: colors.red }}>R</Text>egister</Text>
-          </Button>
-          {/* <Text onPress={() => { navigation.navigate("login") }} style={{ fontSize: 20, top: 15, color: colors.blue }}><Text style={{ color: colors.red }}>Log</Text>in?</Text> */}
-          {/* <Text onPress={() => { this.props.navigation.navigate("login") }} style={{ color: "#fff", marginTop: 10, fontWeight: "bold" }}>Login?</Text> */}
-        </Row>
 
-        <Row style={{ alignItems: "center", justifyContent: "center", marginTop: 30 }}>
-          <Text onPress={() => { navigation.navigate("SecondPage") }} style={{ fontSize: 20, color: colors.blue }}><Text style={{ color: colors.red }}>Log</Text>in?</Text>
-
-        </Row>
         {/* <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 10 }}>
           <Text onPress={() => navigation.navigate('Forgot')} style={{ color: "#a3a3a3", fontSize: 14 }}>Forgot password ?</Text>
         </View> */}
@@ -457,6 +428,22 @@ const styles = StyleSheet.create({
     flex: 1,
     color: "#a3a3a3",
     paddingLeft: 15
+  },
+  emailaddress: {
+    height: 50,
+    width: "100%",
+    marginTop: 10,
+    marginBottom: 10,
+    borderColor: "#fff",
+    borderWidth: 1,
+    borderRadius: 20,
+    backgroundColor: "#e1ebfc",
+    padding: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    left: 10,
+    color: colors.blue,
+    alignItems: "center", justifyContent: "center"
   },
   IconStyle: {
     fontSize: 16,
@@ -634,20 +621,6 @@ const styles = StyleSheet.create({
     color: "#a3a3a3",
   },
 
-  emailaddress: {
-    height: 40,
-    width: "80%",
-    marginTop: 10,
-    marginBottom: 10,
-    borderColor: "#fff",
-    borderWidth: 1,
-    fontSize: 13,
-    borderRadius: 20,
-    backgroundColor: "#fff",
-    padding: 10,
-    paddingLeft: 20,
-    color: colors.blue
-    // fontFamily:"robato"
-  },
+
 
 })

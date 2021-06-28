@@ -89,6 +89,7 @@ export default function cart(props) {
             .then(async (res) => {
                 console.log("insert_menu res", res)
                 if(res.message== "success"){
+                    AsyncStorage.setItem('menus', "");
                     navigation.navigate("product_list_cus")
                 }
                 // navigation.navigate('product_list')
@@ -128,6 +129,7 @@ export default function cart(props) {
                         // height: 40,
                         width: "96%", marginTop: 10, left: '2%', right: '2%',
                         borderRadius: 15,
+                        backgroundColor: "white",
                         padding: 10,
                         elevation: 10,
                         shadowColor: '#000',
@@ -157,11 +159,14 @@ export default function cart(props) {
                             ListFooterComponent={<View style={{ flexGrow: 1, justifyContent: 'flex-end', height: 0 }} />}
                             keyExtractor={(item, index) => `quotes_${index}`} />
                     </View>
-                    <View style={{ alignItems: "flex-end", justifyContent: "center", width: "40%", padding: 5, flexDirection: "row" }}>
-                        <Text style={{ fontSize: 18 }}>Total cost: ${total_amt}</Text>
+                    <View style={{ height: 5 }}></View>
+                    <View style={{ alignItems: "center", justifyContent: "center", width: "100%", padding: 5, flexDirection: "row" , flexDirection: "row"}}>
+                    <Image source={require('../assets/img/cash.png')} style={{  width: 25, height: 25, resizeMode: "contain" }} />
+
+                        <Text style={{ fontSize: 18 }}>$ {total_amt}</Text>
                     </View>
 
-                    <View style={{ height: 20 }}></View>
+                    <View style={{ height: 10 }}></View>
                     <View style={{ alignItems: "center", justifyContent: "center" }}>
                         <TouchableOpacity
                             onPress={() => {

@@ -169,7 +169,7 @@ export default function cart(props) {
                             <FontAwesome onPress={() => { navigation.navigate("mongo_curd") }} style={{ color: "#000", fontSize: 30, }} name={"hand-o-left"} />
                         </View>
                         <View style={{ alignItems: "center", justifyContent: "center", width: "60%" }}>
-                            <Text>Cart</Text>
+                        <Image source={require('../assets/img/cart.png')} style={{   width: 30, height: 30, resizeMode: "contain" }} />
                         </View>
                         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", width: "20%" }}>
                             {/* <FontAwesome style={{ color: "#000", fontSize: 30, }} name={"opencart"} />
@@ -182,6 +182,7 @@ export default function cart(props) {
                         // height: 40,
                         width: "96%", marginTop: 10, left: '2%', right: '2%',
                         borderRadius: 15,
+                        backgroundColor: "white",
                         padding: 10,
                         elevation: 10,
                         shadowColor: '#000',
@@ -203,7 +204,7 @@ export default function cart(props) {
                                             <TouchableOpacity style={{ right: 10 }}
                                                 onPress={() => { delete_menu(item, item.itemId) }}
                                             >
-                                                <Image source={require('../assets/img/delete_menu.png')} style={{ flex: 1, marginLeft: 8, width: 20, height: 20, resizeMode: "contain" }} />
+                                                <Image source={require('../assets/img/cancel.png')} style={{ flex: 1, marginLeft: 8, width: 25, height: 25, resizeMode: "contain" }} />
                                             </TouchableOpacity>
                                             <UIStepper displayValue
                                                 height={'97%'}
@@ -243,9 +244,10 @@ export default function cart(props) {
                             onPress={() => {
                                 navigation.navigate("cart_order")
                             }}
-                            style={{ alignItems: "center", justifyContent: "center", backgroundColor: "#e3e3e8", borderRadius: 5, height: 40, width: 120 }}
+                            style={{ alignItems: "center", justifyContent: "center", }}
                         >
-                            <Text> CHECK OUT </Text>
+                            {/* <Text> CHECK OUT </Text> */}
+                            <Image source={require('../assets/img/checkout1.png')} style={{  width: 50, height: 50, resizeMode: "contain" }} />
                         </TouchableOpacity>
                     </View>
 

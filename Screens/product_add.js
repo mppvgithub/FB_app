@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, SafeAreaView, View, Text, ActivityIndicator, TouchableHighlight, BackHandler, LogBox, TextInput, Alert, TouchableOpacity } from 'react-native';
+import { FlatList, StyleSheet, SafeAreaView, View, Text, ActivityIndicator, Image,TouchableHighlight, BackHandler, LogBox, TextInput, Alert, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Divider } from 'react-native-elements';
 // import axios from 'axios';
@@ -106,7 +106,7 @@ export default function product_edit(props) {
             <Content style={{ paddingLeft: 20, paddingRight: 20 }}>
                 
                 <View style={styles.view_style}>
-                    <Text>itemName</Text>
+                    <Text>Item name</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={(text) => { setitemName(text) }}
@@ -115,7 +115,7 @@ export default function product_edit(props) {
                     />
                 </View>
                 <View style={styles.view_style}>
-                    <Text>itemAmount</Text>
+                    <Text>Price</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={(text) => { setitemAmount(text) }}
@@ -126,7 +126,7 @@ export default function product_edit(props) {
                     />
                 </View>
                 <View style={styles.view_style}>
-                    <Text>itemDescription</Text>
+                    <Text>Description</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={(text) => { setitemDescription(text) }}
@@ -135,7 +135,7 @@ export default function product_edit(props) {
                     />
                 </View>
                 <View style={styles.view_style}>
-                    <Text>itemQty</Text>
+                    <Text>Quantity</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={(text) => { setitemQty(text) }}
@@ -145,11 +145,12 @@ export default function product_edit(props) {
                 </View>
                 <View style={styles.view_style, { height: 50, marginTop: 20, alignItems: "center", justifyContent: "center" }}>
 
-                    <TouchableOpacity style={{ width: 80, height: 40, backgroundColor: "#a3a3a3", alignItems: "center", justifyContent: "center" }}
+                    <TouchableOpacity style={{ alignItems: "center", justifyContent: "center" }}
                         onPress={() => {
                             add_data()
                         }}>
-                        <Text>Add</Text>
+                        {/* <Text>Add</Text> */}
+                        <Image source={require('../assets/img/save.png')} style={{ flex: 1, marginLeft: 8, width: 50, height: 50, resizeMode: "contain" }} />
                     </TouchableOpacity>
                 </View>
 
@@ -179,8 +180,21 @@ const styles = StyleSheet.create({
     },
 
     input: {
-        height: 40,
-        margin: 12,
+        // height: 40,
+        // margin: 12,
+        // borderWidth: 1,
+
+        height: 50,
+        width: "95%",
+        marginTop: 20,
+        marginBottom: 20,
+        borderColor: "#fff",
         borderWidth: 1,
+        fontSize: 15,
+        borderRadius: 20,
+        backgroundColor: "#e1ebfc",
+        padding: 10,
+        paddingLeft: 20,
+        // color: colors.blue
     },
 });

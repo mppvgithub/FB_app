@@ -6,6 +6,7 @@ const screenHeight = Math.round(Dimensions.get('screen').height);
 import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
 // import { NetworkInfo } from "react-native-network-info";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default function mongo_curd(props) {
     const { navigation } = props;
@@ -59,18 +60,20 @@ export default function mongo_curd(props) {
     return (
         <Container style={{ backgroundColor: "transparent", }}>
         <Header style={{ width: "100%" , backgroundColor:"#fff"}}>
-            <Row style={{ width: "100%" }}>
-                <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
-                    <Text onPress={() => { navigation.navigate("SideMenu") }}>Back</Text>
-                </View>
-                <View style={{  alignItems: "center", justifyContent: "center", width: "60%" }}>
-                    <Text>MERNN</Text>
-                </View>
-                <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
-                    {/* <Text>Next</Text> */}
-                </View>
-            </Row>
-
+           
+            <Row style={{ width: "100%", }}>
+                        <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
+                            {/* <Text onPress={() => { navigation.navigate("mongo_curd") }}>Back</Text> */}
+                            <FontAwesome onPress={() => { navigation.navigate("SideMenu") }} style={{ color: "#000", fontSize: 30, }} name={"hand-o-left"} />
+                        </View>
+                        <View style={{ alignItems: "center", justifyContent: "center", width: "60%" }}>
+                            <Text>MERNN</Text>
+                        </View>
+                        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", width: "20%" }}>
+                            {/* <FontAwesome style={{ color: "#000", fontSize: 30, }} name={"opencart"} />
+                            <Text style={{ backgroundColor: "red", borderRadius: 10, color: "#fff", fontSize: 10 }}>  {menus.length}  </Text> */}
+                        </View>
+                    </Row>
         </Header>
         <Content style={{ backgroundColor: "transparent", }}>
             <Row style={{ height: 10 }}></Row>
