@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet,Text,StatusBar, TouchableOpacity, Image, View, Alert} from 'react-native';
 import { Container, Row, Col, Content } from 'native-base';
-// import {Colors} from '../assets/css/Color'
+import * as colors from '../assets/css/Colors'
 import { ScrollView } from "react-native-gesture-handler";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationActions } from 'react-navigation';
@@ -86,10 +86,10 @@ storeData = async () => {
 
   render() {
     return (
-      <Container style={{ backgroundColor:"red" }}>
+      <Container style={{ backgroundColor:colors.bg_sub_color }}>
        
      
-        <StatusBar translucent={false}  backgroundColor={"green"} barStyle="light-content"  />
+        <StatusBar translucent={false}  backgroundColor={colors.status_bar} barStyle="light-content"  />
         <TouchableOpacity   style={styles.Subheader}   onPress={()=>this.close('Profiles')}  >  
           <Row>
         <Col style={{marginTop:20,marginRight:20,marginLeft:20,width:'40%',justifyContent:'center',alignItems:'flex-end'}}> 
@@ -113,7 +113,7 @@ storeData = async () => {
         <Col  style={styles.ColText}>
           <Text style={{   fontSize: 14,  
             
-            color:"#fff" }}>My Doctor Appointments</Text> 
+            color:colors.bg_color }}>My Doctor Appointments</Text> 
           </Col>
           <Col style={styles.Colarrow}> 
            {/* <Image source={require('../assets/images/arrow-point-menu.png')} style={styles.ArrowImage} /> */}
@@ -132,7 +132,7 @@ storeData = async () => {
         <Col  style={styles.ColText}>
           <Text style={{   fontSize: 14,  
             
-            color:"#fff" }}>My Medication Orders</Text> 
+            color:colors.bg_color }}>My Medication Orders</Text> 
           </Col>
           <Col style={styles.Colarrow}> 
            {/* <Image source={require('../assets/images/arrow-point-menu.png')} style={styles.ArrowImage} /> */}
@@ -153,7 +153,7 @@ storeData = async () => {
         <Col  style={styles.ColText}>
           <Text style={{   fontSize: 14,  
             
-            color:"#fff" }}>Logout</Text> 
+            color:colors.bg_color }}>Logout</Text> 
           </Col>
           <Col style={styles.Colarrow}> 
            {/* <Image source={require('../assets/images/arrow-point-menu.png')} style={styles.ArrowImage} /> */}
@@ -180,9 +180,9 @@ bottom: 0, }}  onPress={()=>this.close('Labs')}>
             margin:0,
             justifyContent:'center',
             alignItems:'center',
-            backgroundColor:"#000", }}>
+            backgroundColor:colors.bg_color, }}>
           <Text style={{   fontSize: 14,  
-            color:"green" }}>Build Version : v 0.1</Text> 
+            color:"#fff" }}>Build Version : v 0.1</Text> 
           </Col>
          
       
@@ -196,20 +196,20 @@ const styles = StyleSheet.create({
     Subheader:{
         height:'9%',
         width:'90%',
-        backgroundColor:"red",
+        backgroundColor:colors.bg_sub_color,
         marginTop:60,
      
       },
       Subheader1:{
         height:'1%',
-        backgroundColor:"red",
+        backgroundColor:colors.bg_sub_color,
         marginTop:30
      
       },
       CompletedModal:{ 
         justifyContent:'center', 
         alignItems:'center', 
-        borderBottomColor: "green",
+        borderBottomColor: colors.bg_color,
       borderBottomWidth: 1,
        height:15,
        marginTop:40
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
         },
         TextStyle:{ 
             fontSize: 14,  
-            color:"green"
+            color:colors.bg_color
         },
         Colarrow:{
             width:'10%',
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
         ArrowImage:{ 
             height: 10, 
             width: 10,  
-            color:"green"
+            color:colors.bg_color
         }
      
   });

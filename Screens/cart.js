@@ -6,6 +6,7 @@ import {
     View,
     Text,
     ActivityIndicator,
+    StatusBar,
     TouchableHighlight,
     BackHandler,
     LogBox,
@@ -17,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import UIStepper from 'react-native-ui-stepper';
 import { update_menu, del_menu } from "./stores/actions";
 import { BASE_URL } from '../config/Constants'
+import * as colors from '../assets/css/Colors'
 
 import { Divider } from 'react-native-elements';
 import { Container, Content, Header, Col, Row } from 'native-base'
@@ -164,6 +166,7 @@ export default function cart(props) {
             <Container>
                 <Header style={{ backgroundColor: "transparent" }}>
                     <Row style={{ width: "100%", }}>
+                    <StatusBar translucent={false}  backgroundColor={colors.status_bar} barStyle="light-content"  />
                         <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
                             {/* <Text onPress={() => { navigation.navigate("mongo_curd") }}>Back</Text> */}
                             <FontAwesome onPress={() => { navigation.navigate("mongo_curd") }} style={{ color: "#000", fontSize: 30, }} name={"hand-o-left"} />
@@ -263,7 +266,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
 
-        backgroundColor: "transparent",
+        backgroundColor:colors.bg_color,
         width: "100%"
     },
 

@@ -11,10 +11,13 @@ import {
     LogBox,
     Alert,
     TouchableOpacity,
+    StatusBar,
     Image
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { get_addQuotes, get_addMenu, deleteQuote, add_menu } from "./stores/actions";
+import * as colors from '../assets/css/Colors'
+
 import { BASE_URL } from '../config/Constants'
 
 import { Divider } from 'react-native-elements';
@@ -32,6 +35,7 @@ export default function product_list_cus(props) {
     // const BASE_URL = 'http://192.168.43.137:9000';
 
     //1 - DECLARE VARIABLES
+    const [items_selected, setItems_selected] = useState([])
     const [isFetching, setIsFetching] = useState(false);
     const [product_details, setProduct_details] = useState([])
 
@@ -49,7 +53,23 @@ export default function product_list_cus(props) {
     //2 - MAIN CODE BEGINS HERE
     useEffect(() => {
         getData()
+        selected_id()
     }, []);
+
+    useEffect(() => {
+        selected_id()
+      }, [dataReducer])
+    
+      const selected_id = async () => {
+        console.log("menu update")
+        var tot = []
+        await menus.map((val, key) => {
+          tot.push(val.itemId)
+    
+        })
+        setItems_selected(tot)
+        console.log("items_selected", items_selected)
+      }
 
     useEffect(() => {
         const backAction = () => {
@@ -147,6 +167,7 @@ export default function product_list_cus(props) {
         return (
             <Container>
                 <Header style={{ backgroundColor: "transparent" }}>
+                <StatusBar translucent={false}  backgroundColor={colors.status_bar} barStyle="light-content"  />
                     <Row style={{ width: "100%", }}>
                         <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
                             {/* <Text onPress={() => { navigation.navigate("mongo_curd") }}>Back</Text> */}
@@ -195,11 +216,21 @@ export default function product_list_cus(props) {
 
                                 </View>
                                 <Divider style={{ backgroundColor: '#999' }} />
-                                <View style={{ height: 70, alignItems: "center", justifyContent: "center" }}>
+                                {
+                                    items_selected.includes(item.itemId) ?
+                                    <View style={{ height: 70, alignItems: "center", justifyContent: "center" }}>
+                                    <TouchableOpacity  style={{ backgroundColor: "green", width: 85, height: 30, alignItems: "center", justifyContent: "center", borderRadius: 5 }}>
+                                        <Text style={{ color: "#fff" }}>Added</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                    :
+                                    <View style={{ height: 70, alignItems: "center", justifyContent: "center" }}>
                                     <TouchableOpacity onPress={() => { addcart(item) }} style={{ backgroundColor: "#4287f5", width: 85, height: 30, alignItems: "center", justifyContent: "center", borderRadius: 5 }}>
                                         <Text style={{ color: "#fff" }}>Add to Cart</Text>
                                     </TouchableOpacity>
                                 </View>
+                                }
+                               
 
                             </View>
 
@@ -219,7 +250,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
 
-        backgroundColor: "transparent",
+        backgroundColor:colors.bg_color,
         width: "100%"
     },
 

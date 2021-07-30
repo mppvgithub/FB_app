@@ -1,10 +1,10 @@
 import { Container, Header, Content, Row, Col } from 'native-base';
 import React, { useEffect, useState, useLayoutEffect } from 'react';
-import { FlatList, Image, StyleSheet, SafeAreaView, View, Text, Dimensions, TouchableOpacity, Alert, BackHandler, LogBox, } from 'react-native';
+import { FlatList, Image, StyleSheet, SafeAreaView, View, Text,StatusBar, Dimensions, TouchableOpacity, Alert, BackHandler, LogBox, } from 'react-native';
 const screenWidth = Math.round(Dimensions.get('screen').width);
 const screenHeight = Math.round(Dimensions.get('screen').height);
 import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
-
+import * as colors from '../assets/css/Colors'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 splash['navigationOptions'] = screenProps => ({
     header: null
@@ -88,6 +88,7 @@ export default function splash(props) {
 
     return (
         <Container style={{ backgroundColor: "transparent", alignItems: "center", justifyContent: "center", flex: 1 }}>
+          <StatusBar translucent={false}  backgroundColor={colors.status_bar} barStyle="light-content"  />
             <Text>Checking login status...</Text>
         </Container>
     )

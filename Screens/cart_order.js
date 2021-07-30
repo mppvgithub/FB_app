@@ -9,6 +9,7 @@ import {
     TouchableHighlight,
     BackHandler,
     LogBox,
+    StatusBar,
     Alert,
     Image,
     TouchableOpacity
@@ -17,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import UIStepper from 'react-native-ui-stepper';
 import { update_menu, del_menu } from "./stores/actions";
 import { BASE_URL } from '../config/Constants'
+import * as colors from '../assets/css/Colors'
 
 import { Divider } from 'react-native-elements';
 import { Container, Content, Header, Col, Row } from 'native-base'
@@ -89,8 +91,11 @@ export default function cart(props) {
             .then(async (res) => {
                 console.log("insert_menu res", res)
                 if(res.message== "success"){
-                    AsyncStorage.setItem('menus', "");
+                  await  AsyncStorage.removeItem('menus')
+                  .then(()=>{
                     navigation.navigate("product_list_cus")
+                  })
+                   
                 }
                 // navigation.navigate('product_list')
             }).catch((error) => {
@@ -110,6 +115,7 @@ export default function cart(props) {
         return (
             <Container>
                 <Header style={{ backgroundColor: "transparent" }}>
+                <StatusBar translucent={false}  backgroundColor={colors.status_bar} barStyle="light-content"  />
                     <Row style={{ width: "100%", }}>
                         <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
                             {/* <Text onPress={() => { navigation.navigate("mongo_curd") }}>Back</Text> */}
@@ -190,7 +196,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
 
-        backgroundColor: "transparent",
+        backgroundColor:colors.bg_color,
         width: "100%"
     },
 

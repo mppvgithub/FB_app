@@ -61,12 +61,12 @@ export default function dashboard(props) {
                 </Row>
 
             </Header>
-            <Content style={{ backgroundColor: "transparent", }}>
+            <Content style={{ backgroundColor: "#5b0a91", }}>
                 <Row style={{ height: 10 }}></Row>
                 <Row style={{ paddingLeft: 10, paddingRight: 10, height: screenHeight * 0.2, }}>
                     <Col style={{ padding: 5 }}>
                     <TouchableOpacity onPress={() => { navigation.navigate('mongo_curd') }} style={styles.card}>
-                            <Col style={{ alignItems: "center", justifyContent: "center" }} >
+                            <Col style={{ alignItems: "center", justifyContent: "center" , }} >
                                 <Row style={{ height: screenHeight * 0.08 }}>
                                     <Image source={require('../assets/img/db.png')} style={{ flex: 1, marginLeft: 8, width: null, height: null, resizeMode: "contain" }} />
                                 </Row>
@@ -165,10 +165,11 @@ const styles = StyleSheet.create({
     card: {
         padding: 10, height: "100%", borderRadius: 5, elevation: 0, width: "100%",
         backgroundColor: "white",
+        // backgroundColor:"#D4AF37",
         borderRadius: 15,
         padding: 10,
         elevation: 10,
-        shadowColor: '#000',
+        shadowColor: '#fff',
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.5,
         shadowRadius: 5,

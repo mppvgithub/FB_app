@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, SafeAreaView, View, Text, ActivityIndicator, Image,TouchableHighlight, BackHandler, LogBox, TextInput, Alert, TouchableOpacity } from 'react-native';
+import { FlatList, StyleSheet, SafeAreaView, View, Text,StatusBar, ActivityIndicator, Image,TouchableHighlight, BackHandler, LogBox, TextInput, Alert, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Divider } from 'react-native-elements';
 // import axios from 'axios';
@@ -7,7 +7,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { get_addQuotes, deleteQuote } from "./stores/actions";
 import {BASE_URL} from '../config/Constants'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { Container, Content, Header, Row, Col, } from 'native-base'
+import { Container, Content, Header, Row, Col, } from 'native-base';
+import * as colors from '../assets/css/Colors'
+
 // import ListItem from "./ListItem";
 LogBox.ignoreAllLogs(true)
 export default function product_edit(props) {
@@ -88,8 +90,9 @@ export default function product_edit(props) {
     //7 - RENDER
 
     return (
-        <Container>
+        <Container style={{}}>
             <Header style={{ backgroundColor: "transparent" }}>
+            <StatusBar translucent={false}  backgroundColor={colors.status_bar} barStyle="light-content"  />
             <Row style={{ width: "100%", }}>
                         <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
                             {/* <Text onPress={() => { navigation.navigate("mongo_curd") }}>Back</Text> */}
@@ -103,7 +106,7 @@ export default function product_edit(props) {
                         </View>
                     </Row>
             </Header>
-            <Content style={{ paddingLeft: 20, paddingRight: 20 }}>
+            <Content style={{ backgroundColor:colors.bg_color, paddingLeft: 20, paddingRight: 20 }}>
                 
                 <View style={styles.view_style}>
                     <Text>Item name</Text>

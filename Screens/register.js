@@ -93,17 +93,7 @@ export default class login extends Component {
     // const { navigate } = this.props.navigation;
     return (
       <Container >
-        <StatusBar
-          barStyle="light-content"
-          // dark-content, light-content and default
-          hidden={false}
-          //To hide statusBar
-          backgroundColor={"blue"}
-          //Background color of statusBar only works for Android
-          translucent={false}
-          //allowing light, but not detailed shapes
-          networkActivityIndicatorVisible={true}
-        />
+        <StatusBar translucent={false}  backgroundColor={colors.status_bar} barStyle="light-content"  />
         <Container style={{ alignItems: "center", justifyContent: "center", height: "100%", width: "100%", backgroundColor: colors.bg }}>
           <Content>
             <View style={{ marginTop: 55, marginBottom: 20, height: 110, alignItems: "center", justifyContent: "center" }}>

@@ -10,10 +10,13 @@ import {
     BackHandler,
     LogBox,
     Alert,
+    StatusBar,
     TouchableOpacity, Image
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { useIsFocused } from '@react-navigation/native';
+// import { useIsFocused } from '@react-navigation/native';
+import * as colors from '../assets/css/Colors'
+
 import { Divider } from 'react-native-elements';
 // import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -28,7 +31,7 @@ import {BASE_URL} from '../config/Constants'
 LogBox.ignoreAllLogs(true)
 export default function Home(props) {
     const dispatch = useDispatch();
-    const isFocused = useIsFocused();
+    // const isFocused = useIsFocused();
     const { navigation } = props;
 
     // const BASE_URL = 'http://192.168.43.137:9000';
@@ -48,7 +51,7 @@ export default function Home(props) {
     //2 - MAIN CODE BEGINS HERE
     useEffect(() => {
         getData()
-    }, []);
+    }, [quotes]);
 
     // useEffect(() => {
     //     const unsubscribe = navigation.addListener('focus', () => {
@@ -135,6 +138,7 @@ export default function Home(props) {
         return (
             <Container>
                 <Header style={{ backgroundColor: "transparent" }}>
+                <StatusBar translucent={false}  backgroundColor={colors.status_bar} barStyle="light-content"  />
                     <Row style={{ width: "100%", }}>
                         <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
                             {/* <Text onPress={() => { navigation.navigate("mongo_curd") }}>Back</Text> */}
@@ -213,7 +217,7 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        backgroundColor: "transparent",
+        backgroundColor:colors.bg_color,
     },
 
     activityIndicatorContainer: {

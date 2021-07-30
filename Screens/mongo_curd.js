@@ -1,13 +1,13 @@
 import { Container, Header, Content, Row, Col } from 'native-base';
 import React, { useEffect, useState, useLayoutEffect } from 'react';
-import { FlatList, Image, StyleSheet, SafeAreaView, View, Text, Dimensions, TouchableOpacity, Alert, BackHandler, LogBox, } from 'react-native';
+import { FlatList, Image, StyleSheet, SafeAreaView, View, StatusBar,Text, Dimensions, TouchableOpacity, Alert, BackHandler, LogBox, } from 'react-native';
 const screenWidth = Math.round(Dimensions.get('screen').width);
 const screenHeight = Math.round(Dimensions.get('screen').height);
 import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
 // import { NetworkInfo } from "react-native-network-info";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-
+import * as colors from '../assets/css/Colors'
 export default function mongo_curd(props) {
     const { navigation } = props;
 
@@ -58,9 +58,9 @@ export default function mongo_curd(props) {
 
 
     return (
-        <Container style={{ backgroundColor: "transparent", }}>
+        <Container style={{ backgroundColor: colors.bg_color, }}>
         <Header style={{ width: "100%" , backgroundColor:"#fff"}}>
-           
+        <StatusBar translucent={false}  backgroundColor={colors.status_bar} barStyle="light-content"  />
             <Row style={{ width: "100%", }}>
                         <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
                             {/* <Text onPress={() => { navigation.navigate("mongo_curd") }}>Back</Text> */}

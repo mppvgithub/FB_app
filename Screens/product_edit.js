@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, SafeAreaView, Image,View, Text, ActivityIndicator, TouchableHighlight, BackHandler, LogBox, TextInput, Alert, TouchableOpacity } from 'react-native';
+import { FlatList, StyleSheet, SafeAreaView, Image,View, Text,StatusBar, ActivityIndicator, TouchableHighlight, BackHandler, LogBox, TextInput, Alert, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Divider } from 'react-native-elements';
 // import axios from 'axios';
@@ -9,6 +9,8 @@ import {BASE_URL} from '../config/Constants'
 import { Container, Content, Header, Row, Col, } from 'native-base'
 // import ListItem from "./ListItem";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import * as colors from '../assets/css/Colors'
+
 LogBox.ignoreAllLogs(true)
 export default function product_edit(props) {
     const dispatch = useDispatch();
@@ -91,7 +93,7 @@ export default function product_edit(props) {
     return (
         <Container>
             <Header style={{ backgroundColor: "transparent" }}>
-                
+            <StatusBar translucent={false}  backgroundColor={colors.status_bar} barStyle="light-content"  />
                 <Row style={{ width: "100%", }}>
                         <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
                             {/* <Text onPress={() => { navigation.navigate("mongo_curd") }}>Back</Text> */}
@@ -105,7 +107,7 @@ export default function product_edit(props) {
                         </View>
                     </Row>
             </Header>
-            <Content style={{ paddingLeft: 20, paddingRight: 20 }}>
+            <Content style={{ backgroundColor:colors.bg_color, paddingLeft: 20, paddingRight: 20 }}>
                 <View style={styles.view_style}>
                     <Text  style={styles.input}>Item ID: {itemId}</Text>
                 </View>

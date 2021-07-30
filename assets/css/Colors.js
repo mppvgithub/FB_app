@@ -13,4 +13,6 @@ export const price = "#B77467";
 export const border = "#FD4431";
 export const text_shadow = "rgba(0, 0, 0, 0.75)";
 export const font_family = "arial";
-export const status_bar = "#6200ff";
+export const status_bar = "#5b0a91";
+export const bg_color = "#5b0a91"; //violet
+export const bg_sub_color = "#fff";
