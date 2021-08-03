@@ -23,7 +23,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { get_addQuotes, deleteQuote } from "./stores/actions";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-
+import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
 import { Container, Content, Header, Col, Row } from 'native-base'
 import {BASE_URL} from '../config/Constants'
 
@@ -140,17 +140,24 @@ export default function Home(props) {
                 <Header style={{ backgroundColor: "transparent" }}>
                 <StatusBar translucent={false}  backgroundColor={colors.status_bar} barStyle="light-content"  />
                     <Row style={{ width: "100%", }}>
-                        <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
+                        <View style={{ alignItems: "center", justifyContent: "center", width: "15%" }}>
                             {/* <Text onPress={() => { navigation.navigate("mongo_curd") }}>Back</Text> */}
                             <FontAwesome onPress={() => { navigation.navigate("mongo_curd") }} style={{ color: "#000", fontSize: 30, }} name={"hand-o-left"} />
                         </View>
                         <View style={{ alignItems: "center", justifyContent: "center", width: "60%" }}>
-                            <Text>Product List</Text>
+                            <Text style={{marginLeft:RFValue(20)}}>Product List</Text>
                         </View>
-                        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", width: "20%" }}>
+                        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", width: "10%" }}>
+                            <TouchableOpacity
+                                onPress={() => {getData()}}>
+                                <Image source={require('../assets/img/update.png')} style={{ flex: 1,  width: 30, height: 30, resizeMode: "contain" }} />
+
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", width: "15%" }}>
                             <TouchableOpacity
                                 onPress={() => navigation.navigate('product_add')}>
-                                <Image source={require('../assets/img/add1.png')} style={{ flex: 1, marginLeft: 8, width: 30, height: 30, resizeMode: "contain" }} />
+                                <Image source={require('../assets/img/add1.png')} style={{ flex: 1,  width: 30, height: 30, resizeMode: "contain" }} />
 
                             </TouchableOpacity>
                         </View>

@@ -25,7 +25,7 @@ import { Container, Content, Header, Col, Row } from 'native-base'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
 // import ListItem from "./ListItem";
 LogBox.ignoreAllLogs(true)
 export default function cart(props) {
@@ -198,7 +198,7 @@ export default function cart(props) {
                             // renderItem={renderItem}
                             renderItem={({ item, index }) => (
                                 <View>
-                                    <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", height: 45, }}>
+                                    <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", height:RFValue(50), }}>
                                         <View style={{ alignItems: "flex-start", justifyContent: "center", width: "60%", flexDirection: "column", left: 5 }}>
                                             <Text style={{ fontSize: 20 }}>{item.itemName}</Text>
                                             <Text style={{ fontSize: 10, color: "#999" }}>$ {item.itemAmount}</Text>
@@ -207,10 +207,10 @@ export default function cart(props) {
                                             <TouchableOpacity style={{ right: 10 }}
                                                 onPress={() => { delete_menu(item, item.itemId) }}
                                             >
-                                                <Image source={require('../assets/img/cancel.png')} style={{ flex: 1, marginLeft: 8, width: 25, height: 25, resizeMode: "contain" }} />
+                                                <Image source={require('../assets/img/cancel.png')} style={{ flex: 1, marginLeft: 8, width: 25, height: RFValue(35), resizeMode: "contain" }} />
                                             </TouchableOpacity>
                                             <UIStepper displayValue
-                                                height={'97%'}
+                                                height={'100%'}
                                                 width={'60%'}
                                                 value={item.itemSelcted}
                                                 initialValue={item.itemSelcted}
@@ -231,7 +231,10 @@ export default function cart(props) {
                                             {/* <Text style={{ fontSize: 18 }}>- {item.itemSelcted} +</Text> */}
                                         </View>
                                     </View>
-                                    <Divider style={{ backgroundColor: '#000' }} />
+                                    {
+                                        (menus.length-1) != index &&
+                                        <Divider style={{ backgroundColor: '#000' }} />
+                                    }
                                 </View>
 
 
@@ -247,10 +250,10 @@ export default function cart(props) {
                             onPress={() => {
                                 navigation.navigate("cart_order")
                             }}
-                            style={{ alignItems: "center", justifyContent: "center", }}
+                            style={{ alignItems: "center",backgroundColor:colors.bg_color, borderRadius:5,height:RFValue(40), width:RFValue(130), justifyContent: "center", }}
                         >
-                            {/* <Text> CHECK OUT </Text> */}
-                            <Image source={require('../assets/img/checkout1.png')} style={{  width: 50, height: 50, resizeMode: "contain" }} />
+                            <Text style={{color:"#fff"}}> CHECK OUT </Text>
+                            {/* <Image source={require('../assets/img/checkout1.png')} style={{  width: 50, height: 50, resizeMode: "contain" }} /> */}
                         </TouchableOpacity>
                     </View>
 
@@ -266,7 +269,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
 
-        backgroundColor:colors.bg_color,
+        // backgroundColor:colors.bg_color,
         width: "100%"
     },
 

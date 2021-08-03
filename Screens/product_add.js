@@ -99,7 +99,7 @@ export default function product_edit(props) {
                             <FontAwesome onPress={() => { navigation.navigate("product_list") }} style={{ color: "#000", fontSize: 30, }} name={"hand-o-left"} />
                         </View>
                         <View style={{ alignItems: "center", justifyContent: "center", width: "60%" }}>
-                            <Text>Add Product</Text>
+                            <Text >Add Product</Text>
                         </View>
                         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", width: "20%" }}>
                             
@@ -109,7 +109,7 @@ export default function product_edit(props) {
             <Content style={{ backgroundColor:colors.bg_color, paddingLeft: 20, paddingRight: 20 }}>
                 
                 <View style={styles.view_style}>
-                    <Text>Item name</Text>
+                    <Text style={{color:"#fff"}}>Item name</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={(text) => { setitemName(text) }}
@@ -118,7 +118,7 @@ export default function product_edit(props) {
                     />
                 </View>
                 <View style={styles.view_style}>
-                    <Text>Price</Text>
+                    <Text style={{color:"#fff"}}>Price</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={(text) => { setitemAmount(text) }}
@@ -129,7 +129,7 @@ export default function product_edit(props) {
                     />
                 </View>
                 <View style={styles.view_style}>
-                    <Text>Description</Text>
+                    <Text style={{color:"#fff"}}>Description</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={(text) => { setitemDescription(text) }}
@@ -138,7 +138,7 @@ export default function product_edit(props) {
                     />
                 </View>
                 <View style={styles.view_style}>
-                    <Text>Quantity</Text>
+                    <Text style={{color:"#fff"}}>Quantity</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={(text) => { setitemQty(text) }}

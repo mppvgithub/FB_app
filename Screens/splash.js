@@ -1,6 +1,6 @@
 import { Container, Header, Content, Row, Col } from 'native-base';
 import React, { useEffect, useState, useLayoutEffect } from 'react';
-import { FlatList, Image, StyleSheet, SafeAreaView, View, Text,StatusBar, Dimensions, TouchableOpacity, Alert, BackHandler, LogBox, } from 'react-native';
+import { FlatList, Image, StyleSheet, SafeAreaView, View, Text,StatusBar, ActivityIndicator,Dimensions, TouchableOpacity, Alert, BackHandler, LogBox, } from 'react-native';
 const screenWidth = Math.round(Dimensions.get('screen').width);
 const screenHeight = Math.round(Dimensions.get('screen').height);
 import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
@@ -89,7 +89,8 @@ export default function splash(props) {
     return (
         <Container style={{ backgroundColor: "transparent", alignItems: "center", justifyContent: "center", flex: 1 }}>
           <StatusBar translucent={false}  backgroundColor={colors.status_bar} barStyle="light-content"  />
-            <Text>Checking login status...</Text>
+            <Text style={{color:colors.bg_color}}>Checking login status...</Text>
+            <ActivityIndicator size="small" color={colors.bg_color} />
         </Container>
     )
 

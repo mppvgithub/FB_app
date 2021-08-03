@@ -131,7 +131,11 @@ export default class login extends Component {
 
 
             <View style={{ alignItems: "center", justifyContent: "center" }}>
-              <TouchableOpacity onPress={() => { this.dashboard() }} style={{
+              <TouchableOpacity 
+              // onPress={() => { this.dashboard() }} 
+              onPress={() => { this.login_check() }} 
+              
+              style={{
                 // backgroundColor: "#e1ebfc", alignItems: "center", justifyContent: "center", borderColor: "#fff",
                 // borderWidth: 1,
                 // fontSize: 15,

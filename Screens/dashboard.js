@@ -53,7 +53,7 @@ export default function dashboard(props) {
                         <Text onPress={() => { navigation.navigate("SideMenu") }}>Menu</Text>
                     </View>
                     <View style={{  alignItems: "center", justifyContent: "center", width: "60%" }}>
-                        <Text>Dashboard</Text>
+                        <Text style={{fontsize:20, fontWeight:"bold"}}>Dashboard</Text>
                     </View>
                     <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
                         {/* <Text>Next</Text> */}

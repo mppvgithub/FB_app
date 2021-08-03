@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import UIStepper from 'react-native-ui-stepper';
-import { update_menu, del_menu } from "./stores/actions";
+import { update_menu, del_menu , del_all_menu} from "./stores/actions";
 import { BASE_URL } from '../config/Constants'
 import * as colors from '../assets/css/Colors'
 
@@ -93,6 +93,9 @@ export default function cart(props) {
                 if(res.message== "success"){
                   await  AsyncStorage.removeItem('menus')
                   .then(()=>{
+                    dispatch(del_all_menu())
+                  })
+                  .then(()=>{
                     navigation.navigate("product_list_cus")
                   })
                    
@@ -157,7 +160,11 @@ export default function cart(props) {
                                             <Text style={{ fontSize: 18 }}>x{item.itemSelcted}     ${item.itemAmount}</Text>
                                         </View>
                                     </View>
-                                    <Divider style={{ backgroundColor: '#000' }} />
+                                    {
+                                        (menus.length-1) != index &&
+                                        <Divider style={{ backgroundColor: '#000' }} />
+                                    }
+                                    
                                 </View>
 
 
@@ -178,9 +185,9 @@ export default function cart(props) {
                             onPress={() => {
                                 on_order()
                             }}
-                            style={{ alignItems: "center", justifyContent: "center", backgroundColor: "#e3e3e8", borderRadius: 5, height: 40, width: 120 }}
+                            style={{ alignItems: "center", justifyContent: "center", backgroundColor: colors.bg_color, borderRadius: 5, height: 40, width: 120 }}
                         >
-                            <Text>   MAKE ORDER :) </Text>
+                            <Text style={{color:"#fff"}}>   MAKE ORDER :) </Text>
                         </TouchableOpacity>
                     </View>
 
@@ -196,7 +203,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
 
-        backgroundColor:colors.bg_color,
+        // backgroundColor:colors.bg_color,
         width: "100%"
     },
 

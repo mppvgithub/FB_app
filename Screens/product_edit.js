@@ -112,7 +112,7 @@ export default function product_edit(props) {
                     <Text  style={styles.input}>Item ID: {itemId}</Text>
                 </View>
                 <View style={styles.view_style}>
-                    <Text>Item Name</Text>
+                    <Text style={{color:"#fff"}}>Item Name</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={(text) => { setitemName(text) }}
@@ -121,7 +121,7 @@ export default function product_edit(props) {
                     />
                 </View>
                 <View style={styles.view_style}>
-                    <Text>Price</Text>
+                    <Text style={{color:"#fff"}}>Price</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={(text) => { setitemAmount(text) }}
@@ -132,7 +132,7 @@ export default function product_edit(props) {
                     />
                 </View>
                 <View style={styles.view_style}>
-                    <Text>Quantity</Text>
+                    <Text style={{color:"#fff"}}>Quantity</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={(text) => { setitemQty(text) }}
@@ -143,7 +143,7 @@ export default function product_edit(props) {
                     />
                 </View>
                 <View style={styles.view_style}>
-                    <Text>Description</Text>
+                    <Text style={{color:"#fff"}}>Description</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={(text) => { setitemDescription(text) }}

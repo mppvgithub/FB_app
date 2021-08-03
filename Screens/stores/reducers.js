@@ -9,7 +9,8 @@ import {
     MENU_AVAILABLE,
     ADD_MENU,
     DEL_MENU,
-    UPDATE_MENU
+    UPDATE_MENU,
+    DEL_ALL_MENU
 } from "./actions" //Import the actions types constant we defined in our actions
 
 let dataState = {
@@ -102,6 +103,12 @@ const dataReducers = (state = dataState, action) => {
                 }
             })
 
+            return { ...state};
+        }
+
+        case DEL_ALL_MENU: {
+            var id = action.data.details;
+            state.menus= []
             return { ...state};
         }
 
