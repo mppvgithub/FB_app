@@ -29,7 +29,7 @@ export default function LoadingScreen(props) {
     // return <AppLoading/>;
     return (
         <View style={{alignItems:"center", justifyContent:"center", height:"100%", width:"100%", flex:1}}>
-            <Text>   Loading...</Text>
+            <Text style={{fontsize:20, fontWeight:"bold"}}>   Loading...</Text>
         </View>
     );
 }

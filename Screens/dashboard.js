@@ -49,13 +49,14 @@ export default function dashboard(props) {
         <Container style={{ backgroundColor: "transparent", }}>
             <Header style={{ width: "100%", backgroundColor: "#fff", }}>
                 <Row style={{ width: "100%" }}>
-                    <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
-                        <Text onPress={() => { navigation.navigate("SideMenu") }}>Menu</Text>
+                    <View style={{ alignItems: "center", justifyContent: "center", width: "15%" }}>
+                        {/* <Text onPress={() => { navigation.navigate("SideMenu") }}>Menu</Text> */}
+                        <Image source={require('../assets/img/menu.png')} style={{ width: 30, height: 25, resizeMode: "contain" }} />
                     </View>
-                    <View style={{  alignItems: "center", justifyContent: "center", width: "60%" }}>
+                    <View style={{  alignItems: "center", justifyContent: "center", width: "70%" }}>
                         <Text style={{fontsize:20, fontWeight:"bold"}}>Dashboard</Text>
                     </View>
-                    <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
+                    <View style={{ alignItems: "center", justifyContent: "center", width: "15%" }}>
                         {/* <Text>Next</Text> */}
                     </View>
                 </Row>
@@ -68,10 +69,11 @@ export default function dashboard(props) {
                     <TouchableOpacity onPress={() => { navigation.navigate('mongo_curd') }} style={styles.card}>
                             <Col style={{ alignItems: "center", justifyContent: "center" , }} >
                                 <Row style={{ height: screenHeight * 0.08 }}>
-                                    <Image source={require('../assets/img/db.png')} style={{ flex: 1, marginLeft: 8, width: null, height: null, resizeMode: "contain" }} />
+                                    <Image source={require('../assets/img/commercial.png')} style={{ flex: 1,  width: null, height: null, resizeMode: "contain" }} />
                                 </Row>
                                 <Row style={{ height: "3%" }}></Row>
-                                <Text style={{ fontSize: RFValue(12), textAlign: "center" }}>Mongodb crud {"\n"} Redux</Text>
+                                <Text style={{ fontSize: RFValue(12), textAlign: "center" }}>Commercial</Text>
+                                {/* <Text style={{ fontSize: RFValue(12), textAlign: "center" }}>Mongodb crud {"\n"} Redux</Text> */}
                             </Col>
                         </TouchableOpacity>
                     </Col>
@@ -79,10 +81,10 @@ export default function dashboard(props) {
                         <TouchableOpacity onPress={() => { navigation.navigate('register') }} style={styles.card}>
                             <Col style={{ alignItems: "center", justifyContent: "center" }} >
                                 <Row style={{ height: screenHeight * 0.08 }}>
-                                    {/* <Image source={require('../assets/img/dashboard_img4.png')} style={{ flex: 1, width: null, height: null, resizeMode: "contain" }} /> */}
+                                    <Image source={require('../assets/img/new_user.png')} style={{ flex: 1, width: null, height: null, resizeMode: "contain" }} />
                                 </Row>
                                 <Row style={{ height: "3%" }}></Row>
-                                <Text style={{ fontSize: RFValue(12), textAlign: "center" }}>New{"\n"}Regsiter</Text>
+                                <Text style={{ fontSize: RFValue(12), textAlign: "center" }}>Regsiter</Text>
                             </Col>
                         </TouchableOpacity>
                     </Col>
@@ -93,48 +95,51 @@ export default function dashboard(props) {
                         <TouchableOpacity onPress={() => { navigation.navigate('LoadingScreen') }} style={styles.card}>
                             <Col style={{ alignItems: "center", justifyContent: "center" }} >
                                 <Row style={{ height: screenHeight * 0.08 }}>
-                                    {/* <Image source={require('../assets/img/dashboard_img2.png')} style={{ flex: 1, marginLeft: 8, width: null, height: null, resizeMode: "contain" }} /> */}
+                                    <Image source={require('../assets/img/todo.png')} style={{ flex: 1,  width: null, height: null, resizeMode: "contain" }} />
                                 </Row>
                                 <Row style={{ height: "3%" }}></Row>
-                                <Text style={{ fontSize: RFValue(12), textAlign: "center" }}>TODO App{"\n"}redex</Text>
+                                <Text style={{ fontSize: RFValue(12), textAlign: "center" }}>TODO App</Text>
                             </Col>
                         </TouchableOpacity>
                     </Col>
-                    <Col style={{ padding: 5 }}>
-                        <TouchableOpacity onPress={() => { navigation.navigate('SideMenu') }} style={styles.card}>
-                            <Col style={{ alignItems: "center", justifyContent: "center" }} >
-                                <Row style={{ height: screenHeight * 0.08 }}>
-                                    {/* <Image source={require('../assets/img/dashboard_img4.png')} style={{ flex: 1, width: null, height: null, resizeMode: "contain" }} /> */}
-                                </Row>
-                                <Row style={{ height: "3%" }}></Row>
-                                <Text style={{ fontSize: RFValue(12), textAlign: "center" }}>profile{"\n"}firebase</Text>
-                            </Col>
-                        </TouchableOpacity>
-                    </Col>
-
-                </Row>
-                <Row style={{ paddingLeft: 10, paddingRight: 10, height: screenHeight * 0.2, }}>
                     <Col style={{ padding: 5 }}>
                         <TouchableOpacity onPress={() => { navigation.navigate('FB_file_iamge') }} style={styles.card}>
                             <Col style={{ alignItems: "center", justifyContent: "center" }} >
                                 <Row style={{ height: screenHeight * 0.08 }}>
-                                    {/* <Image source={require('../assets/img/dashboard_img2.png')} style={{ flex: 1, marginLeft: 8, width: null, height: null, resizeMode: "contain" }} /> */}
+                                    <Image source={require('../assets/img/firebase.png')} style={{ flex: 1,  width: null, height: null, resizeMode: "contain" }} />
                                 </Row>
                                 <Row style={{ height: "3%" }}></Row>
                                 <Text style={{ fontSize: RFValue(12), textAlign: "center" }}>Firebase{"\n"}File Images</Text>
                             </Col>
                         </TouchableOpacity>
                     </Col>
+                    
+
+                </Row>
+                <Row style={{ paddingLeft: 10, paddingRight: 10, height: screenHeight * 0.2, }}>
+               
                     <Col style={{ padding: 5 }}>
                     <TouchableOpacity onPress={() => {  AsyncStorage.clear(); }} style={styles.card}>
                             <Col style={{ alignItems: "center", justifyContent: "center" }} >
                                 <Row style={{ height: screenHeight * 0.08 }}>
-                                    {/* <Image source={require('../assets/img/dashboard_img2.png')} style={{ flex: 1, marginLeft: 8, width: null, height: null, resizeMode: "contain" }} /> */}
+                                    <Image source={require('../assets/img/clear_data.png')} style={{ flex: 1, marginLeft: 8, width: null, height: null, resizeMode: "contain" }} />
                                 </Row>
                                 <Row style={{ height: "3%" }}></Row>
                                 <Text style={{ fontSize: RFValue(12), textAlign: "center" }}>Clear AsyncStorage</Text>
                             </Col>
                         </TouchableOpacity>
+                    </Col>
+
+                    <Col style={{ padding: 5 }}>
+                        {/* <TouchableOpacity onPress={() => { navigation.navigate('SideMenu') }} style={styles.card}>
+                            <Col style={{ alignItems: "center", justifyContent: "center" }} >
+                                <Row style={{ height: screenHeight * 0.08 }}>
+                                    <Image source={require('../assets/img/dashboard_img4.png')} style={{ flex: 1, width: null, height: null, resizeMode: "contain" }} />
+                                </Row>
+                                <Row style={{ height: "3%" }}></Row>
+                                <Text style={{ fontSize: RFValue(12), textAlign: "center" }}>profile{"\n"}firebase</Text>
+                            </Col>
+                        </TouchableOpacity> */}
                     </Col>
 
                 </Row>

@@ -125,7 +125,7 @@ export default function cart(props) {
                             <FontAwesome onPress={() => { navigation.navigate("mongo_curd") }} style={{ color: "#000", fontSize: 30, }} name={"hand-o-left"} />
                         </View>
                         <View style={{ alignItems: "center", justifyContent: "center", width: "60%" }}>
-                            <Text>Confirm Order</Text>
+                            <Text style={{fontsize:20, fontWeight:"bold"}}>Confirm Order</Text>
                         </View>
                         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", width: "20%" }}>
                             {/* <FontAwesome style={{ color: "#000", fontSize: 30, }} name={"opencart"} />

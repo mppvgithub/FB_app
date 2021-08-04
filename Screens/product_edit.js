@@ -100,7 +100,7 @@ export default function product_edit(props) {
                             <FontAwesome onPress={() => { navigation.navigate("product_list") }} style={{ color: "#000", fontSize: 30, }} name={"hand-o-left"} />
                         </View>
                         <View style={{ alignItems: "center", justifyContent: "center", width: "60%" }}>
-                            <Text>Edit Product</Text>
+                            <Text style={{fontsize:20, fontWeight:"bold"}}>Edit Product</Text>
                         </View>
                         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", width: "20%" }}>
                             

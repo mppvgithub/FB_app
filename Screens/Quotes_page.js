@@ -51,19 +51,12 @@ export default function Home(props) {
     //==================================================================================================
 
     //3 - GET FLATLIST DATA
-    const getData = () => {
-        setIsFetching(true);
-        console.log("1---------")
-        //OPTION 1 - LOCAL DATA
-        AsyncStorage.getItem('quotes', (err, quotes) => {
-            if (err) alert(err.message);
-            else if (quotes !== null) {
-                //Initially save data to store , before rendering data
-                dispatch(get_addQuotes(JSON.parse(quotes)));
-            }
-
-            setIsFetching(false)
-        });
+    const getData = async () => {
+        await setIsFetching(true);
+        await get_ASdata();
+        if (quotes !== "") {
+            await setIsFetching(false)
+        }
 
         //OPTION 2 - FAKE API
         // let url = "https://my-json-server.typicode.com/mesandigital/demo/quotes";
@@ -73,6 +66,20 @@ export default function Home(props) {
         //     .catch(error => alert(error.message))
         //     .finally(() => setIsFetching(false));
     };
+    
+    const get_ASdata = async () => {
+        //OPTION 1 - LOCAL DATA
+        AsyncStorage.getItem('quotes', (err, quotes) => {
+            console.log("check qoutes in AS", quotes)
+            if (err) alert(err.message);
+            else if (quotes !== null) {
+                //Initially save data to store , before rendering data
+                dispatch(get_addQuotes(JSON.parse(quotes)));
+            }
+
+
+        });
+    }
 
     //==================================================================================================
 
@@ -111,7 +118,7 @@ export default function Home(props) {
                 AsyncStorage.setItem('quotes',
                     JSON.stringify(quotes), // update list (after deleted data )
                     () => {
-                        console.log("id",id),
+                        console.log("id", id),
                             dispatch(deleteQuote(id))
                     }// update quotes state (Delete data from state qoute)
                 );
@@ -161,7 +168,7 @@ export default function Home(props) {
                                     <TouchableOpacity onPress={() => { onEdit(item) }} style={{ alignItems: "center", width: "70%", flexDirection: "row-reverse" }}>
                                         <Text style={{ textAlign: "right", color: "blue" }}>EDIT</Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => { onDelete(index) }} style={{ alignItems: "center", width: "30%", flexDirection: "row-reverse" }}>
+                                    <TouchableOpacity onPress={() => { onDelete(item.id) }} style={{ alignItems: "center", width: "30%", flexDirection: "row-reverse" }}>
                                         <Text style={{ textAlign: "right", color: "red" }}>Delete</Text>
                                     </TouchableOpacity>
                                 </View>

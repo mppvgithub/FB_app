@@ -89,7 +89,7 @@ export default function splash(props) {
     return (
         <Container style={{ backgroundColor: "transparent", alignItems: "center", justifyContent: "center", flex: 1 }}>
           <StatusBar translucent={false}  backgroundColor={colors.status_bar} barStyle="light-content"  />
-            <Text style={{color:colors.bg_color}}>Checking login status...</Text>
+            <Text  style={{fontsize:20, fontWeight:"bold", color:colors.bg_color, marginBottom:20}}>Checking login status...</Text>
             <ActivityIndicator size="small" color={colors.bg_color} />
         </Container>
     )

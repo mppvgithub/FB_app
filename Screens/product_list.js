@@ -145,7 +145,7 @@ export default function Home(props) {
                             <FontAwesome onPress={() => { navigation.navigate("mongo_curd") }} style={{ color: "#000", fontSize: 30, }} name={"hand-o-left"} />
                         </View>
                         <View style={{ alignItems: "center", justifyContent: "center", width: "60%" }}>
-                            <Text style={{marginLeft:RFValue(20)}}>Product List</Text>
+                            <Text style={{fontsize:20, fontWeight:"bold",marginLeft:RFValue(20)}}>Product List</Text>
                         </View>
                         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", width: "10%" }}>
                             <TouchableOpacity

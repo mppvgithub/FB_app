@@ -174,7 +174,7 @@ export default function product_list_cus(props) {
                             <FontAwesome onPress={() => { navigation.navigate("mongo_curd") }} style={{ color: "#000", fontSize: 30, }} name={"hand-o-left"} />
                         </View>
                         <View style={{ alignItems: "center", justifyContent: "center", width: "60%" }}>
-                            <Text>Buy Product</Text>
+                            <Text style={{fontsize:20, fontWeight:"bold"}}>Buy Product</Text>
                         </View>
                         <View style={{ alignItems: "center", justifyContent: "center", width: "20%" }}>
                             {/* <Text>Next</Text> */}

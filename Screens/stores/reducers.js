@@ -21,9 +21,9 @@ let dataState = {
 const dataReducers = (state = dataState, action) => {
     switch (action.type) {
         case ADD_QUOTE:
-            let { get_quote } = action.data;
+            var get_quote  = action.data.quote;
             console.log("ADD_QUOTE get_quote", get_quote)
-            console.log("state.quotes", state.quotes)
+            // console.log("state.quotes", state.quotes)
             //clone the current state
             let clone = JSON.parse(JSON.stringify(state.quotes));
 
@@ -37,7 +37,7 @@ const dataReducers = (state = dataState, action) => {
             return { ...state, quotes };
 
         case UPDATE_QUOTE: {
-            let { get_quote } = action.data;
+            var get_quote = action.data.quote;
             console.log("UPDATE_QUOTE, get_quote", get_quote)
             console.log("state.quotes", state.quotes)
             //clone the current state
@@ -53,7 +53,8 @@ const dataReducers = (state = dataState, action) => {
         }
 
         case DELETE_QUOTE: {
-            let { id } = action.data;
+            console.log("delete quote details",action)
+            var id = action.data.id;
 
             //clone the current state
             let clone = JSON.parse(JSON.stringify(state.quotes));

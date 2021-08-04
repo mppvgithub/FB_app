@@ -67,7 +67,7 @@ export default function mongo_curd(props) {
                             <FontAwesome onPress={() => { navigation.navigate("SideMenu") }} style={{ color: "#000", fontSize: 30, }} name={"hand-o-left"} />
                         </View>
                         <View style={{ alignItems: "center", justifyContent: "center", width: "60%" }}>
-                            <Text>MERNN</Text>
+                            <Text style={{fontsize:20, fontWeight:"bold"}}>MERNN</Text>
                         </View>
                         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", width: "20%" }}>
                             {/* <FontAwesome style={{ color: "#000", fontSize: 30, }} name={"opencart"} />
