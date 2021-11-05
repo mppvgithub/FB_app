@@ -14,7 +14,7 @@ import {
     TouchableOpacity, Image
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-// import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useFocusEffect } from '@react-navigation/native';
 import * as colors from '../assets/css/Colors'
 
 import { Divider } from 'react-native-elements';
@@ -25,7 +25,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
 import { Container, Content, Header, Col, Row } from 'native-base'
-import {BASE_URL} from '../config/Constants'
+import { BASE_URL } from '../config/Constants'
 
 // import ListItem from "./ListItem";
 LogBox.ignoreAllLogs(true)
@@ -53,6 +53,18 @@ export default function Home(props) {
         getData()
     }, [quotes]);
 
+
+    // useFocusEffect(
+    //     React.useCallback(() => {
+    //         // Do something when the screen is focused.
+    //         alert('Home Screen was focused');
+    //         return () => {
+    //             // Do something when the screen is unfocused
+    //             alert('Home Screen was unfocused');
+    //         };
+    //     }, [])
+    // );
+
     // useEffect(() => {
     //     const unsubscribe = navigation.addListener('focus', () => {
     //      console.log("refresh navigation")
@@ -77,7 +89,7 @@ export default function Home(props) {
 
     //3 - GET FLATLIST DATA
     const getData = async () => {
-       await setProduct_details([])
+        await setProduct_details([])
         fetch(BASE_URL + "/menus_list", {
             method: 'post',
             headers: {
@@ -138,26 +150,26 @@ export default function Home(props) {
         return (
             <Container>
                 <Header style={{ backgroundColor: "transparent" }}>
-                <StatusBar translucent={false}  backgroundColor={colors.status_bar} barStyle="light-content"  />
+                    <StatusBar translucent={false} backgroundColor={colors.status_bar} barStyle="light-content" />
                     <Row style={{ width: "100%", }}>
                         <View style={{ alignItems: "center", justifyContent: "center", width: "15%" }}>
                             {/* <Text onPress={() => { navigation.navigate("mongo_curd") }}>Back</Text> */}
                             <FontAwesome onPress={() => { navigation.navigate("mongo_curd") }} style={{ color: "#000", fontSize: 30, }} name={"hand-o-left"} />
                         </View>
                         <View style={{ alignItems: "center", justifyContent: "center", width: "60%" }}>
-                            <Text style={{fontsize:20, fontWeight:"bold",marginLeft:RFValue(20)}}>Product List</Text>
+                            <Text style={{ fontsize: 20, fontWeight: "bold", marginLeft: RFValue(20) }}>Product List</Text>
                         </View>
                         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", width: "10%" }}>
                             <TouchableOpacity
-                                onPress={() => {getData()}}>
-                                <Image source={require('../assets/img/update.png')} style={{ flex: 1,  width: 30, height: 30, resizeMode: "contain" }} />
+                                onPress={() => { getData() }}>
+                                <Image source={require('../assets/img/update.png')} style={{ flex: 1, width: 30, height: 30, resizeMode: "contain" }} />
 
                             </TouchableOpacity>
                         </View>
                         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", width: "15%" }}>
                             <TouchableOpacity
                                 onPress={() => navigation.navigate('product_add')}>
-                                <Image source={require('../assets/img/add1.png')} style={{ flex: 1,  width: 30, height: 30, resizeMode: "contain" }} />
+                                <Image source={require('../assets/img/add1.png')} style={{ flex: 1, width: 30, height: 30, resizeMode: "contain" }} />
 
                             </TouchableOpacity>
                         </View>
@@ -186,18 +198,18 @@ export default function Home(props) {
                                     <View style={{ justifyContent: "center", width: "50%", flexDirection: "row" }}>
                                         <TouchableOpacity onPress={() => { navigation.navigate('product_edit', { menu: item }) }} style={{ alignItems: "center", width: "70%", flexDirection: "row-reverse" }}>
                                             {/* <Text style={{ textAlign: "right", color: "blue" }}>EDIT</Text> */}
-                                            <FontAwesome  style={{ color: "blue", fontSize: 20, }} name={"edit"} />
+                                            <FontAwesome style={{ color: "blue", fontSize: 20, }} name={"edit"} />
 
                                         </TouchableOpacity>
                                         <TouchableOpacity onPress={() => { onDelete(item) }} style={{ alignItems: "center", width: "30%", flexDirection: "row-reverse" }}>
                                             {/* <Text style={{ textAlign: "right", color: "red" }}>Delete</Text> */}
-                                            <AntDesign  style={{ color: "red", fontSize: 20, }} name={"delete"} />
+                                            <AntDesign style={{ color: "red", fontSize: 20, }} name={"delete"} />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
                                 <Divider style={{ backgroundColor: '#999' }} />
                                 <View style={{ top: 5 }}>
-                                <Text>Available Quantity: {item.itemQty}</Text>
+                                    <Text>Available Quantity: {item.itemQty}</Text>
                                     <Text>Description: {item.itemDescription}</Text>
                                 </View>
 
@@ -224,7 +236,7 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        backgroundColor:colors.bg_color,
+        backgroundColor: colors.bg_color,
     },
 
     activityIndicatorContainer: {

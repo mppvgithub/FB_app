@@ -5,6 +5,8 @@ const screenWidth = Math.round(Dimensions.get('screen').width);
 const screenHeight = Math.round(Dimensions.get('screen').height);
 import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
 // import { NetworkInfo } from "react-native-network-info";
+import { BASE_URL } from '../config/Constants'
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as colors from '../assets/css/Colors'
@@ -18,7 +20,7 @@ export default function mongo_curd(props) {
 
 
 
-    const BASE_URL = 'http://192.168.43.137:9000';
+    // const BASE_URL = 'http://192.168.43.137:9000';
 
     useEffect(() => {
 
